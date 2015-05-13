@@ -1,14 +1,14 @@
 'use strict';
-const React = require('react');
+var React = require('react');
 
-var filepicker = React.createClass({
+var Filepicker = React.createClass({
 
     render: function () {
         return (
-            <div />
+            <div className="filepicker" />
         );
     }
 
 });
 
-module.exports = filepicker;
+module.exports = Filepicker;

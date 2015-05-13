@@ -1,0 +1,8 @@
+/* Filepicker CSS */
+div.filepicker {
+    text-align: center;
+    padding: 10px;
+    background-color: #DDD;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
