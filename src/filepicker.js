@@ -1,14 +1,23 @@
 'use strict';
-const React = require('react');
+import React from 'react';
+import Dropzone from 'dropzone';
 
-var filepicker = React.createClass({
+class ReactPicker extends React.Component {
 
-    render: function () {
+  componentDidMount: function() {
+  	
+  	this.dropzone = new Dropzone(this.getDOMNode(), options);
+
+    return {
+      isDragActive: false
+    }
+  },
+
+  render: function () {
         return (
             <div />
         );
     }
+};
 
-});
-
-module.exports = filepicker;
+module.exports = ReactPicker;
