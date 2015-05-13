@@ -24,3 +24,7 @@ div.intro {
     margin-left: 20px;
     color: #000;
 }
+
+div#content {
+    width: 500px;
+}
