@@ -1,17 +1,21 @@
 'use strict';
-import React from 'react';
-import Dropzone from 'dropzone';
-import Helpers from './helpers';
-import IconComponent from './icon';
+
+var React = require('react');
+var Dropzone = require('dropzone');
+var Helpers = require('./helpers');
+var IconComponent = require('./icon');
 
 class ReactPicker extends React.Component {
 
-  componentDidMount: function() {
-  	
-  	this.dropzone = new Dropzone(this.getDOMNode(), options);
-  },
+  componentDidMount() {
+  	this.dropzone = new Dropzone(React.findDOMNode());
+  }
 
-  render: function () {
+  componentWillUnmount() {
+     this.dropzone.destroy();
+  }
+
+  render() {
         var icon = (this.props.fileicon) ? <IconComponent filetype="txt" /> : null;
 
         return (
@@ -20,5 +24,6 @@ class ReactPicker extends React.Component {
             </div>
         );
   }
+};
 
 module.exports = ReactPicker;
