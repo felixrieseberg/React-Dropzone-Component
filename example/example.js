@@ -4,6 +4,7 @@ var React = require('react');
 var Spreadsheet = require('../src/filepicker');
 
 var config = {
+    allowedFiletypes: ['jpg', 'png', 'gif'],
     showFiletypeIcon: false
 };
 
