@@ -8,7 +8,10 @@ var IconComponent = require('./icon');
 class ReactPicker extends React.Component {
 
   componentDidMount() {
-  	this.dropzone = new Dropzone(React.findDOMNode());
+  	let defaultURL = '/file/post'; 
+  	let options = {url: defaultURL};
+
+  	this.dropzone = new Dropzone(React.findDOMNode(this), options);
   }
 
   componentWillUnmount() {
@@ -19,7 +22,7 @@ class ReactPicker extends React.Component {
         var icon = (this.props.fileicon) ? <IconComponent filetype="txt" /> : null;
 
         return (
-            <div className="filepicker">
+            <div className="filepicker dropzone">
                 {icon}
             </div>
         );
