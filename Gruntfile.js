@@ -54,4 +54,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-jscs");
 
     grunt.registerTask('default', ['browserify', 'connect', 'watch']);
+    grunt.registerTask('test', ['jscs']);
 };
