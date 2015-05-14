@@ -17,14 +17,5 @@ var path = require('path'),
     app.use(new MulterImpl({}).init());
 
     app.post('/uploadHandler', function (req, res) {
-        var files = req.files.file;
-        if (Array.isArray(files)) {
-            // response with multiple files (old form may send multiple files)
-            console.log("Got " + files.length + " files");
-        }
-        else {
-            // dropzone will send multiple requests per default
-            console.log("Got one file");
-        }
         res.sendStatus(200);
     });

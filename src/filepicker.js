@@ -34,10 +34,10 @@ class ReactFilePicker extends React.Component {
     }
 
     render() {
-        var icon = (this.props.fileicon) ? < IconComponent filetype = 'txt' / > : null;
+        var icon = (this.props.fileicon) ? <IconComponent filetype='txt' /> : null;
 
         return (
-            <div className='filepicker dropzone'> 
+            <div className='filepicker dropzone'>
                 {icon}
             </div>
         );
