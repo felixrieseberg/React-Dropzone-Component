@@ -31,13 +31,13 @@ class DropzoneComponent extends React.Component {
             'Access-Control-Allow-Origin': '*'
         },
         withCredentials: true
-    }
+    },
 
     /**
      * React 'componentDidMount' method
      * Sets up dropzone.js with the component.
      */
-    componentDidMount() {
+    componentDidMount: function () {
         var self = this,
             options;
 
@@ -53,20 +53,20 @@ class DropzoneComponent extends React.Component {
 
         this.dropzone = new Dropzone(React.findDOMNode(self), options);
         Dropzone.autoDiscover = false;
-    }
+    },
 
     /**
      * React 'componentWillUnmount'
      * Removes dropzone.js (and all its globals) if the component is being unmounted
      */
-    componentWillUnmount() {
+    componentWillUnmount: function () {
         this.dropzone.destroy();
-    }
+    },
 
     /**
      * React 'render'
      */
-    render() {
+    render: function () {
         var icon = (this.props.fileicon) ? <IconComponent filetype='txt' /> : null;
 
         return (
