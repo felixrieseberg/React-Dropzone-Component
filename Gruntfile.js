@@ -31,11 +31,22 @@ module.exports = function (grunt) {
             server: {
                 options: {
                     port: 8000,
-                    base: './example'
-                }
+                    base: './',
+                    onCreateServer: function(server, connect, options) {
+                        var app = connect(),
+                            multer  = require('multer');
+
+                        app.use('/uploadHandler',[ multer({ dest: './uploads/'}), function(req, res){
+                               console.log(req.body) // form fields
+                               console.log(req.files) // form files
+                               res.status(204).end()
+                        }]);
+
+                        console.log('/uploadHandler has been configured');
+                    }
+                } 
             }
         },
-
         jscs: {
             files: {
                 src: ['src/**/*.js']

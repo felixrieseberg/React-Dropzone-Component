@@ -6,7 +6,7 @@ var ReactFilePicker = require('../src/filepicker');
 var config = {
     allowedFiletypes: ['jpg', 'png', 'gif'],
     showFiletypeIcon: false,
-    postUrl : 'http://localhost:3000/'
+    postUrl : '/uploadHandler'
 };
 
 // Render

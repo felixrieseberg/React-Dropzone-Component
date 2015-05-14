@@ -35,8 +35,5 @@
     "express": "^4.12.3",
     "jquery": "^1.11",
     "multer": "^0.1.8"
-  },
-  "scripts": {
-        "start": "node server.js"
   }
 }
