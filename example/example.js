@@ -1,12 +1,13 @@
 'use strict';
 
 var React = require('react');
-var Spreadsheet = require('../src/filepicker');
+var ReactFilePicker = require('../src/filepicker');
 
 var config = {
     allowedFiletypes: ['jpg', 'png', 'gif'],
-    showFiletypeIcon: false
+    showFiletypeIcon: false,
+    postUrl : 'http://localhost:3000/'
 };
 
 // Render
-React.render(<Filepicker config={config} />, document.getElementById('content'));
+React.render(<ReactFilePicker config={config} />, document.getElementById('content'));

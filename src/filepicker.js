@@ -5,12 +5,13 @@ var Dropzone = require('dropzone');
 var Helpers = require('./helpers');
 var IconComponent = require('./icon');
 
-class ReactPicker extends React.Component {
+class ReactFilePicker extends React.Component {
 
   componentDidMount() {
-  	let defaultURL = '/file/post'; 
-  	let options = {url: defaultURL, autoDiscover: false};
+  	if(!this.props.config.postUrl)
+  		throw new Error("postUrl is a required react property for this component");
 
+  	let options = {url: this.props.config.postUrl};
   	this.dropzone = new Dropzone(React.findDOMNode(this), options);
   	Dropzone.autoDiscover= false;
   }
@@ -30,4 +31,4 @@ class ReactPicker extends React.Component {
   }
 };
 
-module.exports = ReactPicker;
+module.exports = ReactFilePicker;
