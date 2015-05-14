@@ -9,9 +9,10 @@ class ReactPicker extends React.Component {
 
   componentDidMount() {
   	let defaultURL = '/file/post'; 
-  	let options = {url: defaultURL};
+  	let options = {url: defaultURL, autoDiscover: false};
 
   	this.dropzone = new Dropzone(React.findDOMNode(this), options);
+  	Dropzone.autoDiscover= false;
   }
 
   componentWillUnmount() {
