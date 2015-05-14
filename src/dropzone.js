@@ -6,7 +6,7 @@ var Dropzone = require('dropzone');
 var Helpers = require('./helpers');
 var IconComponent = require('./icon');
 
-class ReactFilePicker extends React.Component {
+class DropzoneComponent extends React.Component {
 
     /**
      * dropzone: A reference to the dropzone.js dropzone
@@ -16,13 +16,13 @@ class ReactFilePicker extends React.Component {
 
     /**
      * Defaults for the configuration of Dropzone
-     * Overriden by the 'dropzoneConfig' property
+     * Overriden by the 'djsConfig' property
      * For a full list of possible configurations,
      * please consult
      * http://www.dropzonejs.com/#configuration
      * @type {Object}
      */
-    dropzoneConfigDefaults: {
+    djsConfigDefaults: {
         url: this.props.config.postUrl,
         headers: {
             'Access-Control-Allow-Credentials': true,
@@ -45,10 +45,10 @@ class ReactFilePicker extends React.Component {
             throw new Error('postUrl is a required react property for this component');
         }
 
-        if (this.props.dropzoneConfig) {
-            options = $.extend({}, this.dropzoneConfigDefaults, this.props.dropzoneConfig);
+        if (this.props.djsConfig) {
+            options = $.extend({}, this.djsConfigDefaults, this.props.djsConfig);
         } else {
-            options = this.dropzoneConfigDefaults;
+            options = this.djsConfigDefaults;
         }
 
         this.dropzone = new Dropzone(React.findDOMNode(self), options);
@@ -77,4 +77,4 @@ class ReactFilePicker extends React.Component {
     }
 };
 
-module.exports = ReactFilePicker;
+module.exports = DropzoneComponent;

@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var ReactFilePicker = require('../src/filepicker');
+var DropzoneComponent = require('../src/dropzone');
 
 var componentConfig = {
     allowedFiletypes: ['jpg', 'png', 'gif'],
@@ -9,9 +9,14 @@ var componentConfig = {
     postUrl : '/uploadHandler'
 };
 
-var dropzoneConfig = {
+/**
+ * For a full list of possible configurations,
+ * please consult
+ * http://www.dropzonejs.com/#configuration
+ */
+var djsConfig = {
 
 }
 
 // Render
-React.render(<ReactFilePicker config={componentConfig} dropzoneConfig={dropzoneConfig} />, document.getElementById('content'));
+React.render(<DropzoneComponent config={componentConfig} djsConfig={djsConfig} />, document.getElementById('content'));
