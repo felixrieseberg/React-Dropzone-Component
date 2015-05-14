@@ -26,25 +26,15 @@ module.exports = function (grunt) {
                 }
             }
         },
-
-        connect: {
-            server: {
-                options: {
-                    port: 8000,
-                    base: './',
-                    onCreateServer: function(server, connect, options) {
-                        var app = connect(),
-                            multer  = require('multer');
-
-                        app.use('/uploadHandler',[ multer({ dest: './uploads/'}), function(req, res){
-                               console.log(req.body) // form fields
-                               console.log(req.files) // form files
-                               res.status(204).end()
-                        }]);
-
-                        console.log('/uploadHandler has been configured');
-                    }
-                } 
+        express: {
+            options: {
+                port: 8000,
+                background: false,
+            },
+            test: {
+              options: {
+                script: 'server.js'
+              }
             }
         },
         jscs: {
@@ -61,9 +51,9 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-express-server');
     grunt.loadNpmTasks("grunt-jscs");
 
-    grunt.registerTask('default', ['browserify', 'connect', 'watch']);
+    grunt.registerTask('default', ['browserify', 'express:test', 'watch']);
     grunt.registerTask('test', ['jscs']);
 };
