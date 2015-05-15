@@ -40,11 +40,11 @@ var DropzoneComponent = React.createClass({
         }
 
         if (this.props.djsConfig) {
-            options = Helpers.extend(true, {}, this.djsConfigDefaults, this.props.djsConfig);
+            options = Helpers.extend(true, {}, this.djsConfigDefaults(), this.props.djsConfig);
         } else {
             options = this.djsConfigDefaults;
         }
-
+        
         Dropzone.autoDiscover = false;
         this.dropzone = new Dropzone(React.findDOMNode(self), options);
         this.setupEvents();

@@ -18,7 +18,7 @@ var Helpers = {
                 type: function(obj) {
                     return obj == null ?
                         String(obj) :
-                        objectHelper.class2type[ Object.prototype.toString.call(obj) ] || "object";
+                        objectHelper.class2type[Object.prototype.toString.call(obj)] || "object";
                 },
                 isPlainObject: function(obj) {
                     if (!obj || objectHelper.type(obj) !== "object" || obj.nodeType || objectHelper.isWindow(obj)) {
@@ -71,10 +71,10 @@ var Helpers = {
         } 
 
         for (; i < length; i = i + 1) {
-            if ((options = arguments[ i ]) != null) {
+            if ((options = arguments[i]) != null) {
                 for (name in options) {
-                    src = target[ name ];
-                    copy = options[ name ];
+                    src = target[name];
+                    copy = options[name];
 
                     if (target === copy) {
                         continue;
@@ -88,9 +88,9 @@ var Helpers = {
                             clone = src && objectHelper.isPlainObject(src) ? src : {};
                         }
 
-                        target[ name ] = Extend(deep, clone, copy);
+                        target[name] = this.extend(deep, clone, copy);
                     } else if (copy !== undefined) {
-                        target[ name ] = copy;
+                        target[name] = copy;
                     }
                 }
             }

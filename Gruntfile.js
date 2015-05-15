@@ -7,7 +7,8 @@ module.exports = function (grunt) {
                 tasks: ['browserify:dev']
             },
             options: {
-                nospawn: true
+                nospawn: true,
+                livereload: true
             }
         },
 
@@ -26,6 +27,7 @@ module.exports = function (grunt) {
                 }
             }
         },
+
         express: {
             options: {
                 port: 8000,
@@ -37,6 +39,7 @@ module.exports = function (grunt) {
               }
             }
         },
+        
         jscs: {
             files: {
                 src: ['src/**/*.js']
