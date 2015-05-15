@@ -44,7 +44,7 @@ var DropzoneComponent = React.createClass({
         } else {
             options = this.djsConfigDefaults;
         }
-        
+
         Dropzone.autoDiscover = false;
         this.dropzone = new Dropzone(React.findDOMNode(self), options);
         this.setupEvents();

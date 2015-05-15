@@ -19,6 +19,27 @@ var djsConfig = {
 }
 
 /**
+ * If you want to attach multiple callbacks, simply
+ * create an array filled with all your callbacks.
+ * @type {Array}
+ */
+var callbackArray = [
+    function () {
+        console.log('Look Ma, I\'m a callback in an array!');
+    },
+    function () {
+        console.log('Wooooow!');
+    }
+];
+
+/**
+ * Simple callbacks work too, of course.
+ */
+var simpleCallBack = function () {
+    console.log('I\'m a simple callback');
+}
+
+/**
  * Attach event handlers here to be notified
  * for pretty much any event. 
  * Arrays are accepted.
@@ -32,8 +53,8 @@ var eventHandlers = {
     dragover: null,
     dragleave: null,
     // All of these receive the file as first parameter:
-    addedFile: null,
-    removedFile: null,
+    addedfile: ,
+    removedfile: null,
     thumbnail: null,
     error: null,
     processing: null,

@@ -28,3 +28,11 @@ div.intro {
 div#content {
     width: 500px;
 }
+
+.filepicker.dropzone .dz-preview.dz-image-preview {
+    background: none;
+}
+
+.filepicker.dropzone .dz-preview.dz-image-preview .dz-image {
+    border-radius: 5px;
+}
