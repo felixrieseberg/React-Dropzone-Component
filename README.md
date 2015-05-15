@@ -87,3 +87,6 @@ var simpleCallBack = function () {
 This component comes with a small server example. To try it out, simply run `npm install` and then `grunt` from the component's folder. Visit `http://localhost:8000/example/` to see the uploads working. 
 
 To check out the (super small) source code for this simple upload-accepting server, check out `src-server/` and `server.js`. **The component works with any server infrastructure, though!**
+
+## License
+MIT. For details, please consult `README.md`.
