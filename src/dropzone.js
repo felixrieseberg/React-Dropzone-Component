@@ -8,23 +8,35 @@ var IconComponent = require('./icon');
 
 var DropzoneComponent = React.createClass({
     /**
-     * Defaults for the configuration of Dropzone
-     * Overriden by the 'djsConfig' property
+     * Configuration of Dropzone.js. Defaults are 
+     * overriden overriden by the 'djsConfig' property
      * For a full list of possible configurations,
      * please consult
      * http://www.dropzonejs.com/#configuration
      */
-    djsConfigDefaults: function () {
-        return {
-            url: this.props.config.postUrl,
-            headers: {
-                'Access-Control-Allow-Credentials': true,
-                'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With, X-PINGOTHER, X-File-Name, Cache-Control',
-                'Access-Control-Allow-Methods': 'PUT, POST, GET, OPTIONS',
-                'Access-Control-Allow-Origin': '*'
-            },
-            withCredentials: true
+    getDjsConfig: function () {
+        var options,
+            defaults = {
+                url: this.props.config.postUrl,
+                headers: {
+                    'Access-Control-Allow-Credentials': true,
+                    'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With, X-PINGOTHER, X-File-Name, Cache-Control',
+                    'Access-Control-Allow-Methods': 'PUT, POST, GET, OPTIONS',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                withCredentials: true };
+
+        if (this.props.config.allowedFiletypes && this.props.config.allowedFiletypes.length > 0) {
+            defaults.acceptedFiled = this.props.config.allowedFiletypes;
+        };
+
+        if (this.props.djsConfig) {
+            options = Helpers.extend(true, {}, defaults, this.props.djsConfig);
+        } else {
+            options = defaults;
         }
+
+        return defaults
     },
 
     /**
@@ -33,16 +45,10 @@ var DropzoneComponent = React.createClass({
      */
     componentDidMount: function() {
         var self = this,
-            options;
+            options = this.getDjsConfig();
 
         if (!this.props.config.postUrl) {
             throw new Error('postUrl is a required react property for this component');
-        }
-
-        if (this.props.djsConfig) {
-            options = Helpers.extend(true, {}, this.djsConfigDefaults(), this.props.djsConfig);
-        } else {
-            options = this.djsConfigDefaults;
         }
 
         Dropzone.autoDiscover = false;
@@ -62,11 +68,17 @@ var DropzoneComponent = React.createClass({
      * React 'render'
      */
     render: function() {
-        var icon = (this.props.fileicon) ? <IconComponent filetype='txt' /> : null;
+        var icons = [];
+
+        if (this.props.config.showFiletypeIcon && this.props.config.allowedFiletypes) {
+            for (let i = 0; i < this.props.config.allowedFiletypes.length; i = i + 1) {
+                icons.push(<IconComponent filetype={this.props.config.allowedFiletypes[i]} />);
+            };
+        }
 
         return (
             <div className='filepicker dropzone'>
-                {icon}
+                {icons}
             </div>
         );
     },
@@ -78,8 +90,8 @@ var DropzoneComponent = React.createClass({
     setupEvents: function() {
         var eventHandlers = this.props.eventHandlers;
 
-        if (!this.dropzone) {
-            return false;
+        if (!this.dropzone || !eventHandlers) {
+            return;
         }
 
         for (let eventHandler in eventHandlers) {
