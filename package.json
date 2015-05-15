@@ -1,9 +1,9 @@
 {
-  "name": "react-filepicker",
-  "description": "A Filepicker Component for ReactJS",
-  "version": "0.0.0",
+  "name": "react-dropzone",
+  "description": "A Dropzone Component for ReactJS",
+  "version": "0.1.0",
   "license": "MIT",
-  "repository": "felixrieseberg/React-Spreadsheet-Component",
+  "repository": "felixrieseberg/React-Dropzone",
   "maintainers": [
     {
       "name": "Felix Rieseberg",
@@ -12,8 +12,6 @@
     },
     {
       "name": "Erik Schlegel",
-      "email": "",
-      "web": ""
     }
   ],
   "devDependencies": {
