@@ -2,7 +2,7 @@ var express = require('express'),
     path = require('path'),
     multer = require('multer'),
     bodyParser = require('body-parser'),
-    MulterImpl = require('./src/multerImpl'),
+    MulterImpl = require('./src-server/multerImpl'),
     app = module.exports = express();
     app.set('port', process.env.PORT || 3000);
 
