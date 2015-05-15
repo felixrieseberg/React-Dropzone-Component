@@ -1,7 +1,11 @@
 /* React Filepicker Example CSS */
 
+body {
+    font-family: sans-serif;
+}
+
 h2, h3 {
-    color: #000
+    color: #000;
 }
 
 h2 a {
@@ -14,13 +18,10 @@ body {
 }
 
 div.example {
-    margin-bottom: 80px;
     margin-left: 20px;
 }
 
 div.intro {
-    margin-bottom: 80px;
-    width: 700px;
     margin-left: 20px;
     color: #000;
 }

@@ -4,8 +4,8 @@ var React = require('react');
 var DropzoneComponent = require('./src/dropzone');
 
 var componentConfig = {
-    allowedFiletypes: ['jpg', 'png', 'gif'],
-    showFiletypeIcon: false,
+    allowedFiletypes: ['.jpg', '.png', '.gif'],
+    showFiletypeIcon: true,
     postUrl: '/uploadHandler'
 };
 
@@ -16,7 +16,7 @@ var componentConfig = {
  */
 var djsConfig = {
 
-}
+};
 
 /**
  * If you want to attach multiple callbacks, simply
@@ -37,7 +37,7 @@ var callbackArray = [
  */
 var simpleCallBack = function () {
     console.log('I\'m a simple callback');
-}
+};
 
 /**
  * Attach event handlers here to be notified
@@ -46,14 +46,14 @@ var simpleCallBack = function () {
  */
 var eventHandlers = {
     // All of these receive the event as first parameter:
-    drop: null,
+    drop: callbackArray,
     dragstart: null,
     dragend: null,
     dragenter: null,
     dragover: null,
     dragleave: null,
     // All of these receive the file as first parameter:
-    addedfile: ,
+    addedfile: simpleCallBack,
     removedfile: null,
     thumbnail: null,
     error: null,
