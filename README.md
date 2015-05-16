@@ -1,5 +1,5 @@
 # React-Dropzone
-A dropzone component for ReactJS, allowing users to "drag and drop" files into an upload area. The component uses the battle-tested [Dropzone.js](http://www.dropzone.js) to provide a cross-browser-compatible upload component.
+A dropzone component for ReactJS, allowing users to "drag and drop" files into an upload area. The component uses the battle-tested [Dropzone.js](http://www.dropzonejs.com/) to provide a cross-browser-compatible upload component.
 
 ![](https://raw.githubusercontent.com/felixrieseberg/React-Dropzone/master/.dropzone.gif)
 

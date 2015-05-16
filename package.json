@@ -11,7 +11,9 @@
       "web": "http://www.felixrieseberg.com"
     },
     {
-      "name": "Erik Schlegel"
+      "name": "Erik Schlegel",
+      "email": "erik.schlegel@gmail.com",
+      "web": "erikschlegel.com"
     }
   ],
   "devDependencies": {
