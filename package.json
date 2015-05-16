@@ -12,6 +12,8 @@
     },
     {
       "name": "Erik Schlegel",
+      "email": "erik.schlegel@gmail.com",
+      "web": "erikschlegel.com"
     }
   ],
   "devDependencies": {
