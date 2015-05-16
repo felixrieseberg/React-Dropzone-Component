@@ -68,9 +68,11 @@ var DropzoneComponent = React.createClass({
      * React 'render'
      */
     render: function() {
-        var icons = [];
+        var icons = [],
+            files = this.state.files,
+            config = this.props.config;
 
-        if (this.props.config.showFiletypeIcon && this.props.config.allowedFiletypes) {
+        if (config.showFiletypeIcon && config.allowedFiletypes && (!files || files.length < 1)) {
             for (let i = 0; i < this.props.config.allowedFiletypes.length; i = i + 1) {
                 icons.push(<IconComponent filetype={this.props.config.allowedFiletypes[i]} />);
             };
@@ -106,6 +108,31 @@ var DropzoneComponent = React.createClass({
                 }
             }
         }
+
+        this.dropzone.on('addedfile', (file) => {
+            console.log(file);
+            if (file) {
+                let files = this.state.files;
+                
+                console.log(file);
+
+                if (!files) {
+                    files = [];
+                    files.push(file)
+                }
+            }
+        });
+
+        this.dropzone.on('removedfile', (file) => {
+            if (file) {
+                let files = this.state.files;
+                
+                if (!files) {
+                    files = [];
+                    files.push(file)
+                }
+            }
+        });
     }
 });
 
