@@ -1,14 +1,14 @@
 'use strict';
 
-var React = require('react');
-var Dropzone = require('dropzone');
+var React = require('react'),
+    Dropzone = require('dropzone'),
+    Helpers = require('./helpers'),
+    IconComponent = require('./icon'),
+    DropzoneComponent;
 
-var Helpers = require('./helpers');
-var IconComponent = require('./icon');
-
-var DropzoneComponent = React.createClass({
+DropzoneComponent = React.createClass({
     /**
-     * Configuration of Dropzone.js. Defaults are 
+     * Configuration of Dropzone.js. Defaults are
      * overriden overriden by the 'djsConfig' property
      * For a full list of possible configurations,
      * please consult
@@ -24,7 +24,8 @@ var DropzoneComponent = React.createClass({
                     'Access-Control-Allow-Methods': 'PUT, POST, GET, OPTIONS',
                     'Access-Control-Allow-Origin': '*'
                 },
-                withCredentials: true };
+                withCredentials: true
+            };
 
         if (this.props.config.allowedFiletypes && this.props.config.allowedFiletypes.length > 0) {
             defaults.acceptedFiled = this.props.config.allowedFiletypes;
@@ -43,7 +44,7 @@ var DropzoneComponent = React.createClass({
      * React 'componentDidMount' method
      * Sets up dropzone.js with the component.
      */
-    componentDidMount: function() {
+    componentDidMount: function () {
         var self = this,
             options = this.getDjsConfig();
 
@@ -60,14 +61,14 @@ var DropzoneComponent = React.createClass({
      * React 'componentWillUnmount'
      * Removes dropzone.js (and all its globals) if the component is being unmounted
      */
-    componentWillUnmount: function() {
+    componentWillUnmount: function () {
         this.dropzone.destroy();
     },
 
     /**
      * React 'render'
      */
-    render: function() {
+    render: function () {
         var icons = [],
             files = this.state.files,
             config = this.props.config;
@@ -89,9 +90,9 @@ var DropzoneComponent = React.createClass({
      * React 'getInitialState' method, setting the initial state
      * @return {object}
      */
-    getInitialState: function() {
-        return { 
-            files: null 
+    getInitialState: function () {
+        return {
+            files: []
         }
     },
 
@@ -99,7 +100,7 @@ var DropzoneComponent = React.createClass({
      * Takes event handlers in this.props.eventHandlers
      * and binds them to dropzone.js events
      */
-    setupEvents: function() {
+    setupEvents: function () {
         var eventHandlers = this.props.eventHandlers;
 
         if (!this.dropzone || !eventHandlers) {
@@ -122,24 +123,29 @@ var DropzoneComponent = React.createClass({
         this.dropzone.on('addedfile', (file) => {
             if (file) {
                 let files = this.state.files;
-                
+
                 if (!files) {
                     files = [];
-                    files.push(file)
                 }
+
+                files.push(file)
+
+                this.setState({files: files});
             }
         });
 
         this.dropzone.on('removedfile', (file) => {
             if (file) {
                 let files = this.state.files;
-                
+
                 if (files && files.length > 0) {
                     for (let i = 0; i < files.length; i++) {
-                        if (files[i].name === file.name && files[i].size === file.name) {
+                        if (files[i].name === file.name && files[i].size === file.size) {
                             files.splice(i, 1);
                         }
                     };
+
+                    this.setState({files: files});
                 }
             }
         });

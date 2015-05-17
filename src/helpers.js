@@ -5,54 +5,58 @@ var Helpers = {
      * Clone of jQuery's extend
      * Usage: extend(true, {}, obj1, obj2)
      */
-    extend: function() {
-        var options, name, src, copy, copyIsArray, clone,
+    extend: function () {
+        var options, name, src, copy, copyIsArray, clone, self = this,
             target = arguments[0] || {},
             i = 1,
             length = arguments.length,
             deep = false,
             // helper which replicates the jquery internal functions
             objectHelper = {
-                hasOwn : Object.prototype.hasOwnProperty,
-                class2type : {},
-                type: function(obj) {
+                hasOwn: Object.prototype.hasOwnProperty,
+                class2type: {},
+
+                type: function (obj) {
                     return obj == null ?
                         String(obj) :
-                        objectHelper.class2type[Object.prototype.toString.call(obj)] || "object";
+                        objectHelper.class2type[Object.prototype.toString.call(obj)] || 'object';
                 },
-                isPlainObject: function(obj) {
-                    if (!obj || objectHelper.type(obj) !== "object" || obj.nodeType || objectHelper.isWindow(obj)) {
+
+                isPlainObject: function (obj) {
+                    var key;
+
+                    if (!obj || objectHelper.type(obj) !== 'object' || obj.nodeType || objectHelper.isWindow(obj)) {
                         return false;
                     }
 
                     try {
                         if (obj.constructor &&
-                            !objectHelper.hasOwn.call(obj, "constructor") &&
-                            !objectHelper.hasOwn.call(obj.constructor.prototype, "isPrototypeOf")) {
+                            !objectHelper.hasOwn.call(obj, 'constructor') &&
+                            !objectHelper.hasOwn.call(obj.constructor.prototype, 'isPrototypeOf')) {
                             return false;
                         }
                     } catch (e) {
                         return false;
                     }
 
-                    var key;
-                    for (key in obj) {}
-
                     return key === undefined || objectHelper.hasOwn.call(obj, key);
                 },
-                isArray: Array.isArray || function(obj) {
-                    return objectHelper.type(obj) === "array";
+
+                isArray: Array.isArray || function (obj) {
+                    return objectHelper.type(obj) === 'array';
                 },
-                isFunction: function(obj) {
-                    return objectHelper.type(obj) === "function";
+
+                isFunction: function (obj) {
+                    return objectHelper.type(obj) === 'function';
                 },
-                isWindow: function(obj) {
+
+                isWindow: function (obj) {
                     return obj != null && obj == obj.window;
                 }
             };
 
         // Handle a deep copy situation
-        if (typeof target === "boolean") {
+        if (typeof target === 'boolean') {
             deep = target;
             target = arguments[1] || {};
             // skip the boolean and the target
@@ -60,15 +64,15 @@ var Helpers = {
         }
 
         // Handle case when target is a string or something (possible in deep copy)
-        if (typeof target !== "object" && !objectHelper.isFunction(target)) {
+        if (typeof target !== 'object' && !objectHelper.isFunction(target)) {
             target = {};
         }
 
         // If no second argument is used then this can extend an object that is using this method
         if (length === i) {
-            target = this;
+            target = self;
             --i;
-        } 
+        }
 
         for (; i < length; i = i + 1) {
             if ((options = arguments[i]) != null) {

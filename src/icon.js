@@ -1,16 +1,14 @@
 'use strict';
 
-var React = require('react');
+var React = require('react'),
+    Icon;
 
-var Icon = React.createClass({
-
-    render: function() {
+Icon = React.createClass({
+    render: function () {
         return (
-            <div data-filetype={this.props.filetype}
-                 className="filepicker-file-icon" />
+            <div data-filetype={this.props.filetype} className="filepicker-file-icon" />
         );
     }
-
 });
 
 module.exports = Icon;
