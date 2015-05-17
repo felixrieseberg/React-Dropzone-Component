@@ -36,7 +36,7 @@ var DropzoneComponent = React.createClass({
             options = defaults;
         }
 
-        return defaults
+        return options;
     },
 
     /**
@@ -86,6 +86,16 @@ var DropzoneComponent = React.createClass({
     },
 
     /**
+     * React 'getInitialState' method, setting the initial state
+     * @return {object}
+     */
+    getInitialState: function() {
+        return { 
+            files: null 
+        }
+    },
+
+    /**
      * Takes event handlers in this.props.eventHandlers
      * and binds them to dropzone.js events
      */
@@ -110,12 +120,9 @@ var DropzoneComponent = React.createClass({
         }
 
         this.dropzone.on('addedfile', (file) => {
-            console.log(file);
             if (file) {
                 let files = this.state.files;
                 
-                console.log(file);
-
                 if (!files) {
                     files = [];
                     files.push(file)
@@ -127,9 +134,12 @@ var DropzoneComponent = React.createClass({
             if (file) {
                 let files = this.state.files;
                 
-                if (!files) {
-                    files = [];
-                    files.push(file)
+                if (files && files.length > 0) {
+                    for (let i = 0; i < files.length; i++) {
+                        if (files[i].name === file.name && files[i].size === file.name) {
+                            files.splice(i, 1);
+                        }
+                    };
                 }
             }
         });

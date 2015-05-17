@@ -15,7 +15,7 @@ var componentConfig = {
  * http://www.dropzonejs.com/#configuration
  */
 var djsConfig = {
-
+    addRemoveLinks: true
 };
 
 /**
