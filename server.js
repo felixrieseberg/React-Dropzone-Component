@@ -1,6 +1,5 @@
 var express = require('express'),
     path = require('path'),
-    multer = require('multer'),
     bodyParser = require('body-parser'),
     app = module.exports = express();
     app.set('port', process.env.PORT || 3000);
