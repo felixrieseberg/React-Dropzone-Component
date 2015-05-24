@@ -25,6 +25,29 @@ module.exports = function (grunt) {
                         }]
                     ]
                 }
+            },
+
+            prod: {
+                src: 'src/dropzone.js',
+                dest: 'built/dropzone.js',
+                options: {
+                    debug: true,
+                    extensions: ['.js'],
+                    transform: [
+                        ['reactify', {
+                            'es6': true,
+                            'target': 'es5'
+                        }]
+                    ]
+                }
+            }
+        },
+
+        uglify: {
+            prod: {
+                files: {
+                    'built/dropzone.min.js': ['built/dropzone.js']
+                }
             }
         },
 
@@ -54,9 +77,11 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-uglify');    
     grunt.loadNpmTasks('grunt-express-server');
     grunt.loadNpmTasks("grunt-jscs");
 
     grunt.registerTask('default', ['browserify', 'express:test', 'watch']);
     grunt.registerTask('test', ['jscs']);
+    grunt.registerTask('build', ['browserify:prod', 'uglify:prod']);
 };
