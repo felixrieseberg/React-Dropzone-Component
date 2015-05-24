@@ -74,7 +74,7 @@ DropzoneComponent = React.createClass({
             config = this.props.config;
 
         if (config.showFiletypeIcon && config.allowedFiletypes && (!files || files.length < 1)) {
-            for (let i = 0; i < this.props.config.allowedFiletypes.length; i = i + 1) {
+            for (var i = 0; i < this.props.config.allowedFiletypes.length; i = i + 1) {
                 icons.push(<IconComponent filetype={this.props.config.allowedFiletypes[i]} />);
             };
         }
@@ -107,11 +107,11 @@ DropzoneComponent = React.createClass({
             return;
         }
 
-        for (let eventHandler in eventHandlers) {
+        for (var eventHandler in eventHandlers) {
             if (eventHandlers.hasOwnProperty(eventHandler) && eventHandlers[eventHandler]) {
                 // Check if there's an array of event handlers
                 if (Object.prototype.toString.call(eventHandlers[eventHandler]) === '[object Array]') {
-                    for (let i = 0; i < eventHandlers[eventHandler].length; i = i + 1) {
+                    for (var i = 0; i < eventHandlers[eventHandler].length; i = i + 1) {
                         this.dropzone.on(eventHandler, eventHandlers[eventHandler][i]);
                     };
                 } else {
@@ -122,7 +122,7 @@ DropzoneComponent = React.createClass({
 
         this.dropzone.on('addedfile', (file) => {
             if (file) {
-                let files = this.state.files;
+                var files = this.state.files;
 
                 if (!files) {
                     files = [];
@@ -136,10 +136,10 @@ DropzoneComponent = React.createClass({
 
         this.dropzone.on('removedfile', (file) => {
             if (file) {
-                let files = this.state.files;
+                var files = this.state.files;
 
                 if (files && files.length > 0) {
-                    for (let i = 0; i < files.length; i++) {
+                    for (var i = 0; i < files.length; i++) {
                         if (files[i].name === file.name && files[i].size === file.size) {
                             files.splice(i, 1);
                         }
