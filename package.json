@@ -28,14 +28,13 @@
     "grunt-watchify": "^0.1.0",
     "jscs": "^1.13.1",
     "react": "^0.13.0",
-    "reactify": "^0.17.1"
+    "reactify": "^0.17.1",
+    "multer": "^0.1.8",
+    "express": "^4.12.3",
+    "body-parser": "^1.12.4"
   },
   "dependencies": {
-    "body-parser": "^1.12.4",
-    "dropzone": "^4.0.1",
-    "express": "^4.12.3",
-    "jquery": "^1.11",
-    "multer": "^0.1.8"
+    "dropzone": "^4.0.1"
   },
   "main": "built/dropzone.min.js"
 }
