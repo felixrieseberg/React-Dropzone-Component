@@ -1,9 +1,9 @@
 'use strict';
 
-var React = require('react'),
-    Icon;
+// Not included for component build
+// var React = require('react'),
 
-Icon = React.createClass({
+var Icon = React.createClass({
     render: function () {
         return (
             <div data-filetype={this.props.filetype} className="filepicker-file-icon" />

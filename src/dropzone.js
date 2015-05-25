@@ -1,7 +1,9 @@
 'use strict';
 
-var React = require('react'),
-    Dropzone = require('dropzone'),
+// Not included for component build
+// var React = require('react'),
+
+var Dropzone = require('dropzone'),
     Helpers = require('./helpers'),
     IconComponent = require('./icon'),
     DropzoneComponent;
