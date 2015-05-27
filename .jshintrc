@@ -1,0 +1,24 @@
+{
+  "browser": true,
+  "node": true,
+
+  "curly": true,
+  "devel": true,
+  "globals": {
+  },
+  "noempty": true,
+  "newcap": false,
+  "undef": true,
+  "unused": "vars",
+
+  "asi": true,
+  "boss": true,
+  "eqnull": true,
+  "expr": true,
+  "funcscope": true,
+  "globalstrict": true,
+  "laxbreak": true,
+  "laxcomma": true,
+  "loopfunc": true,
+  "sub": true
+}

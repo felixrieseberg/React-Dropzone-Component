@@ -1,4 +1,289 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/*!
+ * react-dropzone-component 0.2.2 - 
+ * MIT Licensed
+ */
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var o;"undefined"!=typeof window?o=window:"undefined"!=typeof global?o=global:"undefined"!=typeof self&&(o=self),o.ReactDropzone=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
+
+var React = (typeof window !== "undefined" ? window.React : typeof global !== "undefined" ? global.React : null),
+    Dropzone = require('dropzone'),
+    Helpers = require('./helpers'),
+    IconComponent = require('./icon'),
+    DropzoneComponent;
+
+DropzoneComponent = React.createClass({displayName: "DropzoneComponent",
+    /**
+     * Configuration of Dropzone.js. Defaults are
+     * overriden overriden by the 'djsConfig' property
+     * For a full list of possible configurations,
+     * please consult
+     * http://www.dropzonejs.com/#configuration
+     */
+    getDjsConfig: function () {
+        var options,
+            defaults = {
+                url: this.props.config.postUrl,
+                headers: {
+                    'Access-Control-Allow-Credentials': true,
+                    'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With, X-PINGOTHER, X-File-Name, Cache-Control',
+                    'Access-Control-Allow-Methods': 'PUT, POST, GET, OPTIONS',
+                    'Access-Control-Allow-Origin': '*'
+                },
+                withCredentials: true
+            };
+
+        if (this.props.config.allowedFiletypes && this.props.config.allowedFiletypes.length > 0) {
+            defaults.acceptedFiled = this.props.config.allowedFiletypes;
+        };
+
+        if (this.props.djsConfig) {
+            options = Helpers.extend(true, {}, defaults, this.props.djsConfig);
+        } else {
+            options = defaults;
+        }
+
+        return options;
+    },
+
+    /**
+     * React 'componentDidMount' method
+     * Sets up dropzone.js with the component.
+     */
+    componentDidMount: function () {
+        var self = this,
+            options = this.getDjsConfig();
+
+        if (!this.props.config.postUrl) {
+            throw new Error('postUrl is a required react property for this component');
+        }
+
+        Dropzone.autoDiscover = false;
+        this.dropzone = new Dropzone(React.findDOMNode(self), options);
+        this.setupEvents();
+    },
+
+    /**
+     * React 'componentWillUnmount'
+     * Removes dropzone.js (and all its globals) if the component is being unmounted
+     */
+    componentWillUnmount: function () {
+        this.dropzone.destroy();
+    },
+
+    /**
+     * React 'render'
+     */
+    render: function () {
+        var icons = [],
+            files = this.state.files,
+            config = this.props.config;
+
+        if (config.showFiletypeIcon && config.allowedFiletypes && (!files || files.length < 1)) {
+            for (var i = 0; i < this.props.config.allowedFiletypes.length; i = i + 1) {
+                icons.push(React.createElement(IconComponent, {filetype: this.props.config.allowedFiletypes[i]}));
+            };
+        }
+
+        return (
+            React.createElement("div", {className: "filepicker dropzone"}, 
+                icons
+            )
+        );
+    },
+
+    /**
+     * React 'getInitialState' method, setting the initial state
+     * @return {object}
+     */
+    getInitialState: function () {
+        return {
+            files: []
+        }
+    },
+
+    /**
+     * Takes event handlers in this.props.eventHandlers
+     * and binds them to dropzone.js events
+     */
+    setupEvents: function () {
+        var eventHandlers = this.props.eventHandlers;
+
+        if (!this.dropzone || !eventHandlers) {
+            return;
+        }
+
+        for (var eventHandler in eventHandlers) {
+            if (eventHandlers.hasOwnProperty(eventHandler) && eventHandlers[eventHandler]) {
+                // Check if there's an array of event handlers
+                if (Object.prototype.toString.call(eventHandlers[eventHandler]) === '[object Array]') {
+                    for (var i = 0; i < eventHandlers[eventHandler].length; i = i + 1) {
+                        this.dropzone.on(eventHandler, eventHandlers[eventHandler][i]);
+                    };
+                } else {
+                    this.dropzone.on(eventHandler, eventHandlers[eventHandler]);
+                }
+            }
+        }
+
+        this.dropzone.on('addedfile', function(file)  {
+            if (file) {
+                var files = this.state.files;
+
+                if (!files) {
+                    files = [];
+                }
+
+                files.push(file)
+
+                this.setState({files: files});
+            }
+        }.bind(this));
+
+        this.dropzone.on('removedfile', function(file)  {
+            if (file) {
+                var files = this.state.files;
+
+                if (files && files.length > 0) {
+                    for (var i = 0; i < files.length; i++) {
+                        if (files[i].name === file.name && files[i].size === file.size) {
+                            files.splice(i, 1);
+                        }
+                    };
+
+                    this.setState({files: files});
+                }
+            }
+        }.bind(this));
+    }
+});
+
+module.exports = DropzoneComponent;
+
+},{"./helpers":2,"./icon":3,"dropzone":4}],2:[function(require,module,exports){
+'use strict';
+
+var Helpers = {
+    /**
+     * Clone of jQuery's extend
+     * Usage: extend(true, {}, obj1, obj2)
+     */
+    extend: function () {
+        var options, name, src, copy, copyIsArray, clone, self = this,
+            target = arguments[0] || {},
+            i = 1,
+            length = arguments.length,
+            deep = false,
+            // helper which replicates the jquery internal functions
+            objectHelper = {
+                hasOwn: Object.prototype.hasOwnProperty,
+                class2type: {},
+
+                type: function (obj) {
+                    return obj == null ?
+                        String(obj) :
+                        objectHelper.class2type[Object.prototype.toString.call(obj)] || 'object';
+                },
+
+                isPlainObject: function (obj) {
+                    var key;
+
+                    if (!obj || objectHelper.type(obj) !== 'object' || obj.nodeType || objectHelper.isWindow(obj)) {
+                        return false;
+                    }
+
+                    try {
+                        if (obj.constructor &&
+                            !objectHelper.hasOwn.call(obj, 'constructor') &&
+                            !objectHelper.hasOwn.call(obj.constructor.prototype, 'isPrototypeOf')) {
+                            return false;
+                        }
+                    } catch (e) {
+                        return false;
+                    }
+
+                    return key === undefined || objectHelper.hasOwn.call(obj, key);
+                },
+
+                isArray: Array.isArray || function (obj) {
+                    return objectHelper.type(obj) === 'array';
+                },
+
+                isFunction: function (obj) {
+                    return objectHelper.type(obj) === 'function';
+                },
+
+                isWindow: function (obj) {
+                    return obj != null && obj == obj.window;
+                }
+            };
+
+        // Handle a deep copy situation
+        if (typeof target === 'boolean') {
+            deep = target;
+            target = arguments[1] || {};
+            // skip the boolean and the target
+            i = 2;
+        }
+
+        // Handle case when target is a string or something (possible in deep copy)
+        if (typeof target !== 'object' && !objectHelper.isFunction(target)) {
+            target = {};
+        }
+
+        // If no second argument is used then this can extend an object that is using this method
+        if (length === i) {
+            target = self;
+            --i;
+        }
+
+        for (; i < length; i = i + 1) {
+            if ((options = arguments[i]) != null) {
+                for (name in options) {
+                    src = target[name];
+                    copy = options[name];
+
+                    if (target === copy) {
+                        continue;
+                    }
+
+                    if (deep && copy && (objectHelper.isPlainObject(copy) || (copyIsArray = objectHelper.isArray(copy)))) {
+                        if (copyIsArray) {
+                            copyIsArray = false;
+                            clone = src && objectHelper.isArray(src) ? src : [];
+                        } else {
+                            clone = src && objectHelper.isPlainObject(src) ? src : {};
+                        }
+
+                        target[name] = this.extend(deep, clone, copy);
+                    } else if (copy !== undefined) {
+                        target[name] = copy;
+                    }
+                }
+            }
+        }
+
+        return target;
+    }
+}
+
+module.exports = Helpers;
+
+},{}],3:[function(require,module,exports){
+'use strict';
+
+var React = (typeof window !== "undefined" ? window.React : typeof global !== "undefined" ? global.React : null);
+    
+var Icon = React.createClass({displayName: "Icon",
+    render: function () {
+        return (
+            React.createElement("div", {"data-filetype": this.props.filetype, className: "filepicker-file-icon"})
+        );
+    }
+});
+
+module.exports = Icon;
+
+},{}],4:[function(require,module,exports){
 
 /*
  *
@@ -1728,288 +2013,5 @@
 
 }).call(this);
 
-},{}],2:[function(require,module,exports){
-'use strict';
-
-// Not included for component build
-// var React = require('react'),
-
-var Dropzone = require('dropzone'),
-    Helpers = require('./helpers'),
-    IconComponent = require('./icon'),
-    DropzoneComponent;
-
-DropzoneComponent = React.createClass({displayName: "DropzoneComponent",
-    /**
-     * Configuration of Dropzone.js. Defaults are
-     * overriden overriden by the 'djsConfig' property
-     * For a full list of possible configurations,
-     * please consult
-     * http://www.dropzonejs.com/#configuration
-     */
-    getDjsConfig: function () {
-        var options,
-            defaults = {
-                url: this.props.config.postUrl,
-                headers: {
-                    'Access-Control-Allow-Credentials': true,
-                    'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With, X-PINGOTHER, X-File-Name, Cache-Control',
-                    'Access-Control-Allow-Methods': 'PUT, POST, GET, OPTIONS',
-                    'Access-Control-Allow-Origin': '*'
-                },
-                withCredentials: true
-            };
-
-        if (this.props.config.allowedFiletypes && this.props.config.allowedFiletypes.length > 0) {
-            defaults.acceptedFiled = this.props.config.allowedFiletypes;
-        };
-
-        if (this.props.djsConfig) {
-            options = Helpers.extend(true, {}, defaults, this.props.djsConfig);
-        } else {
-            options = defaults;
-        }
-
-        return options;
-    },
-
-    /**
-     * React 'componentDidMount' method
-     * Sets up dropzone.js with the component.
-     */
-    componentDidMount: function () {
-        var self = this,
-            options = this.getDjsConfig();
-
-        if (!this.props.config.postUrl) {
-            throw new Error('postUrl is a required react property for this component');
-        }
-
-        Dropzone.autoDiscover = false;
-        this.dropzone = new Dropzone(React.findDOMNode(self), options);
-        this.setupEvents();
-    },
-
-    /**
-     * React 'componentWillUnmount'
-     * Removes dropzone.js (and all its globals) if the component is being unmounted
-     */
-    componentWillUnmount: function () {
-        this.dropzone.destroy();
-    },
-
-    /**
-     * React 'render'
-     */
-    render: function () {
-        var icons = [],
-            files = this.state.files,
-            config = this.props.config;
-
-        if (config.showFiletypeIcon && config.allowedFiletypes && (!files || files.length < 1)) {
-            for (var i = 0; i < this.props.config.allowedFiletypes.length; i = i + 1) {
-                icons.push(React.createElement(IconComponent, {filetype: this.props.config.allowedFiletypes[i]}));
-            };
-        }
-
-        return (
-            React.createElement("div", {className: "filepicker dropzone"}, 
-                icons
-            )
-        );
-    },
-
-    /**
-     * React 'getInitialState' method, setting the initial state
-     * @return {object}
-     */
-    getInitialState: function () {
-        return {
-            files: []
-        }
-    },
-
-    /**
-     * Takes event handlers in this.props.eventHandlers
-     * and binds them to dropzone.js events
-     */
-    setupEvents: function () {
-        var eventHandlers = this.props.eventHandlers;
-
-        if (!this.dropzone || !eventHandlers) {
-            return;
-        }
-
-        for (var eventHandler in eventHandlers) {
-            if (eventHandlers.hasOwnProperty(eventHandler) && eventHandlers[eventHandler]) {
-                // Check if there's an array of event handlers
-                if (Object.prototype.toString.call(eventHandlers[eventHandler]) === '[object Array]') {
-                    for (var i = 0; i < eventHandlers[eventHandler].length; i = i + 1) {
-                        this.dropzone.on(eventHandler, eventHandlers[eventHandler][i]);
-                    };
-                } else {
-                    this.dropzone.on(eventHandler, eventHandlers[eventHandler]);
-                }
-            }
-        }
-
-        this.dropzone.on('addedfile', function(file)  {
-            if (file) {
-                var files = this.state.files;
-
-                if (!files) {
-                    files = [];
-                }
-
-                files.push(file)
-
-                this.setState({files: files});
-            }
-        }.bind(this));
-
-        this.dropzone.on('removedfile', function(file)  {
-            if (file) {
-                var files = this.state.files;
-
-                if (files && files.length > 0) {
-                    for (var i = 0; i < files.length; i++) {
-                        if (files[i].name === file.name && files[i].size === file.size) {
-                            files.splice(i, 1);
-                        }
-                    };
-
-                    this.setState({files: files});
-                }
-            }
-        }.bind(this));
-    }
+},{}]},{},[1])(1)
 });
-
-module.exports = DropzoneComponent;
-
-},{"./helpers":3,"./icon":4,"dropzone":1}],3:[function(require,module,exports){
-'use strict';
-
-var Helpers = {
-    /**
-     * Clone of jQuery's extend
-     * Usage: extend(true, {}, obj1, obj2)
-     */
-    extend: function () {
-        var options, name, src, copy, copyIsArray, clone, self = this,
-            target = arguments[0] || {},
-            i = 1,
-            length = arguments.length,
-            deep = false,
-            // helper which replicates the jquery internal functions
-            objectHelper = {
-                hasOwn: Object.prototype.hasOwnProperty,
-                class2type: {},
-
-                type: function (obj) {
-                    return obj == null ?
-                        String(obj) :
-                        objectHelper.class2type[Object.prototype.toString.call(obj)] || 'object';
-                },
-
-                isPlainObject: function (obj) {
-                    var key;
-
-                    if (!obj || objectHelper.type(obj) !== 'object' || obj.nodeType || objectHelper.isWindow(obj)) {
-                        return false;
-                    }
-
-                    try {
-                        if (obj.constructor &&
-                            !objectHelper.hasOwn.call(obj, 'constructor') &&
-                            !objectHelper.hasOwn.call(obj.constructor.prototype, 'isPrototypeOf')) {
-                            return false;
-                        }
-                    } catch (e) {
-                        return false;
-                    }
-
-                    return key === undefined || objectHelper.hasOwn.call(obj, key);
-                },
-
-                isArray: Array.isArray || function (obj) {
-                    return objectHelper.type(obj) === 'array';
-                },
-
-                isFunction: function (obj) {
-                    return objectHelper.type(obj) === 'function';
-                },
-
-                isWindow: function (obj) {
-                    return obj != null && obj == obj.window;
-                }
-            };
-
-        // Handle a deep copy situation
-        if (typeof target === 'boolean') {
-            deep = target;
-            target = arguments[1] || {};
-            // skip the boolean and the target
-            i = 2;
-        }
-
-        // Handle case when target is a string or something (possible in deep copy)
-        if (typeof target !== 'object' && !objectHelper.isFunction(target)) {
-            target = {};
-        }
-
-        // If no second argument is used then this can extend an object that is using this method
-        if (length === i) {
-            target = self;
-            --i;
-        }
-
-        for (; i < length; i = i + 1) {
-            if ((options = arguments[i]) != null) {
-                for (name in options) {
-                    src = target[name];
-                    copy = options[name];
-
-                    if (target === copy) {
-                        continue;
-                    }
-
-                    if (deep && copy && (objectHelper.isPlainObject(copy) || (copyIsArray = objectHelper.isArray(copy)))) {
-                        if (copyIsArray) {
-                            copyIsArray = false;
-                            clone = src && objectHelper.isArray(src) ? src : [];
-                        } else {
-                            clone = src && objectHelper.isPlainObject(src) ? src : {};
-                        }
-
-                        target[name] = this.extend(deep, clone, copy);
-                    } else if (copy !== undefined) {
-                        target[name] = copy;
-                    }
-                }
-            }
-        }
-
-        return target;
-    }
-}
-
-module.exports = Helpers;
-
-},{}],4:[function(require,module,exports){
-'use strict';
-
-// Not included for component build
-// var React = require('react'),
-
-var Icon = React.createClass({displayName: "Icon",
-    render: function () {
-        return (
-            React.createElement("div", {"data-filetype": this.props.filetype, className: "filepicker-file-icon"})
-        );
-    }
-});
-
-module.exports = Icon;
-
-},{}]},{},[2]);

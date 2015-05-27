@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react');
-var DropzoneComponent = require('./src/dropzone');
+var DropzoneComponent = require('./lib/dropzone.js');
 
 var componentConfig = {
     allowedFiletypes: ['.jpg', '.png', '.gif'],
