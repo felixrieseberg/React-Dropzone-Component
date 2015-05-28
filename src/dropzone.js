@@ -29,7 +29,7 @@ DropzoneComponent = React.createClass({
 
         if (this.props.config.allowedFiletypes && this.props.config.allowedFiletypes.length > 0) {
             defaults.acceptedFiled = this.props.config.allowedFiletypes;
-        };
+        }
 
         if (this.props.djsConfig) {
             options = Helpers.extend(true, {}, defaults, this.props.djsConfig);
@@ -76,7 +76,7 @@ DropzoneComponent = React.createClass({
         if (config.showFiletypeIcon && config.allowedFiletypes && (!files || files.length < 1)) {
             for (var i = 0; i < this.props.config.allowedFiletypes.length; i = i + 1) {
                 icons.push(<IconComponent filetype={this.props.config.allowedFiletypes[i]} />);
-            };
+            }
         }
 
         return (
@@ -118,7 +118,7 @@ DropzoneComponent = React.createClass({
                         } else {
                             this.dropzone.on(eventHandler, eventHandlers[eventHandler][i]);
                         }
-                    };
+                    }
                 } else {
                     if (eventHandler === 'init') {
                         eventHandlers[eventHandler](this.dropzone);
@@ -152,7 +152,7 @@ DropzoneComponent = React.createClass({
                         if (files[i].name === file.name && files[i].size === file.size) {
                             files.splice(i, 1);
                         }
-                    };
+                    }
 
                     this.setState({files: files});
                 }
