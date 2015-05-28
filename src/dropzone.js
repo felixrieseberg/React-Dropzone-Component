@@ -48,8 +48,8 @@ DropzoneComponent = React.createClass({
         var self = this,
             options = this.getDjsConfig();
 
-        if (!this.props.config.postUrl) {
-            throw new Error('postUrl is a required react property for this component');
+        if (!this.props.config.postUrl && !this.props.eventHandlers.drop) {
+            console.info('Neither postUrl nor a "drop" eventHandler specified, the React-Dropzone component might misbehave.');
         }
 
         Dropzone.autoDiscover = false;
