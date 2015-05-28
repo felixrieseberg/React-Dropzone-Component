@@ -112,10 +112,19 @@ DropzoneComponent = React.createClass({
                 // Check if there's an array of event handlers
                 if (Object.prototype.toString.call(eventHandlers[eventHandler]) === '[object Array]') {
                     for (var i = 0; i < eventHandlers[eventHandler].length; i = i + 1) {
-                        this.dropzone.on(eventHandler, eventHandlers[eventHandler][i]);
+                        // Check if it's an init handler
+                        if (eventHandler === 'init') {
+                            eventHandlers[eventHandler][i](this.dropzone);
+                        } else {
+                            this.dropzone.on(eventHandler, eventHandlers[eventHandler][i]);
+                        }
                     };
                 } else {
-                    this.dropzone.on(eventHandler, eventHandlers[eventHandler]);
+                    if (eventHandler === 'init') {
+                        eventHandlers[eventHandler](this.dropzone);
+                    } else {
+                        this.dropzone.on(eventHandler, eventHandlers[eventHandler]);
+                    }
                 }
             }
         }

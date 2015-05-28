@@ -33,6 +33,10 @@ Callbacks can be provided in an object literal.
 
 ```js
 var eventHandlers = {
+    // This one receives the dropzone object as the first parameter
+    // and can be used to additional work with the dropzone.js 
+    // object
+    init: null,
     // All of these receive the event as first parameter:
     drop: callbackArray,
     dragstart: null,
