@@ -82,6 +82,7 @@ DropzoneComponent = React.createClass({
         return (
             <div className='filepicker dropzone'>
                 {icons}
+                {this.props.children}
             </div>
         );
     },
