@@ -89,6 +89,25 @@ var simpleCallBack = function () {
 };
 ```
 
+The djsconfig prop is compatible with all of the options on the official Dropzonejs page. Updating the preview template is more tricky but can be done as follows.
+
+```js
+var djsConfig = {
+  previewTemplate: React.renderToStaticMarkup(
+    <div className="dz-preview dz-file-preview">
+      <div className="dz-details">
+        <div className="dz-filename"><span data-dz-name></span></div>
+        <img data-dz-thumbnail />
+      </div>
+      <div className="dz-progress"><span className="dz-upload" data-dz-uploadprogress></span></div>
+      <div className="dz-success-mark"><span>✔</span></div>
+      <div className="dz-error-mark"><span>✘</span></div>
+      <div className="dz-error-message"><span data-dz-errormessage></span></div>
+    </div>
+  )
+}
+```
+
 ## Server Example
 This component comes with a small server example. To try it out, simply run `npm install` and then `grunt` from the component's folder. Visit `http://localhost:8000/example/` to see the uploads working. 
 
