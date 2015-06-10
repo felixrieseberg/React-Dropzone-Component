@@ -71,7 +71,8 @@ DropzoneComponent = React.createClass({
     render: function () {
         var icons = [],
             files = this.state.files,
-            config = this.props.config;
+            config = this.props.config,
+            className = (this.props.className) ? 'filepicker dropzone' + this.props.className : 'filepicker dropzone';
 
         if (config.showFiletypeIcon && config.allowedFiletypes && (!files || files.length < 1)) {
             for (var i = 0; i < this.props.config.allowedFiletypes.length; i = i + 1) {
@@ -80,7 +81,7 @@ DropzoneComponent = React.createClass({
         }
 
         return (
-            <div className='filepicker dropzone'>
+            <div className={className}>
                 {icons}
                 {this.props.children}
             </div>

@@ -1,5 +1,5 @@
 /*!
- * react-dropzone-component 0.3.0 - 
+ * react-dropzone-component 0.4.0 (dev build at Wed, 10 Jun 2015 14:44:37 GMT) - 
  * MIT Licensed
  */
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var o;"undefined"!=typeof window?o=window:"undefined"!=typeof global?o=global:"undefined"!=typeof self&&(o=self),o.ReactDropzone=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -53,8 +53,8 @@ DropzoneComponent = React.createClass({displayName: "DropzoneComponent",
         var self = this,
             options = this.getDjsConfig();
 
-        if (!this.props.config.postUrl) {
-            throw new Error('postUrl is a required react property for this component');
+        if (!this.props.config.postUrl && !this.props.eventHandlers.drop) {
+            console.info('Neither postUrl nor a "drop" eventHandler specified, the React-Dropzone component might misbehave.');
         }
 
         Dropzone.autoDiscover = false;
@@ -76,7 +76,8 @@ DropzoneComponent = React.createClass({displayName: "DropzoneComponent",
     render: function () {
         var icons = [],
             files = this.state.files,
-            config = this.props.config;
+            config = this.props.config,
+            className = (this.props.className) ? 'filepicker dropzone' + this.props.className : 'filepicker dropzone';
 
         if (config.showFiletypeIcon && config.allowedFiletypes && (!files || files.length < 1)) {
             for (var i = 0; i < this.props.config.allowedFiletypes.length; i = i + 1) {
@@ -85,8 +86,9 @@ DropzoneComponent = React.createClass({displayName: "DropzoneComponent",
         }
 
         return (
-            React.createElement("div", {className: "filepicker dropzone"}, 
-                icons
+            React.createElement("div", {className: className}, 
+                icons, 
+                this.props.children
             )
         );
     },
