@@ -29,6 +29,9 @@ var componentConfig = {
 };
 ```
 
+### Usage without automatic posting
+If you want to use this component without posting automatically to a URL but instead do the posting yourself, then you can just leave the `postUrl` option empty and handle the displaying of progress by yourself using the provided event handlers.
+
 Callbacks can be provided in an object literal. 
 
 ```js
