@@ -29,9 +29,11 @@ var componentConfig = {
 };
 ```
 
-### Usage without automatic posting
+##### Usage without automatic posting
 If you want to use this component without posting automatically to a URL but instead do the posting yourself, then you can just leave the `postUrl` option empty and handle the displaying of progress by yourself using the provided event handlers.
 
+
+### Callbacks
 Callbacks can be provided in an object literal. 
 
 ```js
@@ -92,7 +94,8 @@ var simpleCallBack = function () {
 };
 ```
 
-The djsconfig prop is compatible with all of the options on the official Dropzonejs page. Updating the preview template is more tricky but can be done as follows.
+### Custom Preview Template
+The djsconfig property is compatible with all of the options in the official [DropzoneJS documentation](http://www.dropzonejs.com/). Updating the preview template can be done as follows:
 
 ```js
 var djsConfig = {
