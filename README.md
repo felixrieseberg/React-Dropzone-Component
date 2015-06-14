@@ -29,7 +29,26 @@ var componentConfig = {
 };
 ```
 
-##### Usage without automatic posting
+##### Accessing the Dropzone Object
+There are a bunch of operations that might require accessing the dropzone object, especially when wanting to call [dropzone methods](http://www.dropzonejs.com/#dropzone-methods).
+
+To get said object, use the `init` event, whose callback will receive a reference to the dropzone object as a parameter. 
+
+```JS
+var myDropzone;
+
+function initCallback (dropzone) {
+    myDropzone = dropzone;
+}
+
+function removeFile () {
+    if (myDropzone) {
+        myDropzone.removeFile();
+    }
+}
+```
+
+##### Usage Without Automatic Posting
 If you want to use this component without posting automatically to a URL but instead do the posting yourself, then you can just leave the `postUrl` option empty and handle the displaying of progress by yourself using the provided event handlers.
 
 
