@@ -76,7 +76,7 @@ DropzoneComponent = React.createClass({
 
         if (config.showFiletypeIcon && config.allowedFiletypes && (!files || files.length < 1)) {
             for (var i = 0; i < this.props.config.allowedFiletypes.length; i = i + 1) {
-                icons.push(<IconComponent filetype={this.props.config.allowedFiletypes[i]} />);
+                icons.push(<IconComponent filetype={this.props.config.allowedFiletypes[i]} key={"icon-component" + i} />);
             }
         }
 
