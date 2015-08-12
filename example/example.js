@@ -1,7 +1,7 @@
 'use strict';
 
-var React = require('react');
-var DropzoneComponent = require('./lib/dropzone.js');
+var React = require('../node_modules/react');
+var DropzoneComponent = require('../lib/dropzone.js');
 
 var componentConfig = {
     allowedFiletypes: ['.jpg', '.png', '.gif'],
@@ -86,3 +86,20 @@ React.render(
                        djsConfig={djsConfig} />, 
     document.getElementById('content')
 );
+
+// Render without PostUrl
+// Uncomment to check out
+/*
+var componentConfigWithoutPostUrl = {
+    allowedFiletypes: ['.jpg', '.png', '.gif'],
+    showFiletypeIcon: true,
+};
+
+React.render(
+    <DropzoneComponent config={componentConfigWithoutPostUrl} 
+                       eventHandlers={eventHandlers}
+                       action="post.php"
+                       djsConfig={djsConfig} />, 
+    document.getElementById('content')
+);
+*/

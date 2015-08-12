@@ -1,11 +1,11 @@
 /*!
- * react-dropzone-component 0.4.2 - 
+ * react-dropzone-component 0.4.4 - 
  * MIT Licensed
  */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.ReactDropzone = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
-var React = (typeof window !== "undefined" ? window.React : typeof global !== "undefined" ? global.React : null),
+var React = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null),
     Dropzone = require('dropzone'),
     Helpers = require('./helpers'),
     IconComponent = require('./icon'),
@@ -22,7 +22,7 @@ DropzoneComponent = React.createClass({displayName: "DropzoneComponent",
     getDjsConfig: function () {
         var options,
             defaults = {
-                url: this.props.config.postUrl,
+                url: this.props.config.postUrl ? this.props.config.postUrl : null,
                 headers: {
                     'Access-Control-Allow-Credentials': true,
                     'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With, X-PINGOTHER, X-File-Name, Cache-Control',
@@ -77,7 +77,7 @@ DropzoneComponent = React.createClass({displayName: "DropzoneComponent",
         var icons = [],
             files = this.state.files,
             config = this.props.config,
-            className = (this.props.className) ? 'filepicker dropzone' + this.props.className : 'filepicker dropzone';
+            className = (this.props.className) ? 'filepicker dropzone ' + this.props.className : 'filepicker dropzone';
 
         if (config.showFiletypeIcon && config.allowedFiletypes && (!files || files.length < 1)) {
             for (var i = 0; i < this.props.config.allowedFiletypes.length; i = i + 1) {
@@ -85,12 +85,21 @@ DropzoneComponent = React.createClass({displayName: "DropzoneComponent",
             }
         }
 
-        return (
-            React.createElement("div", {className: className}, 
-                icons, 
-                this.props.children
-            )
-        );
+        if (!this.props.config.postUrl && this.props.action) {
+            return (
+                React.createElement("form", {action: this.props.action, className: className}, 
+                    icons, 
+                    this.props.children
+                )
+            );
+        } else {
+            return (
+                React.createElement("div", {className: className}, 
+                    icons, 
+                    this.props.children
+                )
+            );
+        }
     },
 
     /**
@@ -282,7 +291,7 @@ module.exports = Helpers;
 },{}],3:[function(require,module,exports){
 'use strict';
 
-var React = (typeof window !== "undefined" ? window.React : typeof global !== "undefined" ? global.React : null);
+var React = (typeof window !== "undefined" ? window['React'] : typeof global !== "undefined" ? global['React'] : null);
     
 var Icon = React.createClass({displayName: "Icon",
     render: function () {

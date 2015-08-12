@@ -3,7 +3,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         browserify: {
             dev: {
-                src: 'example.js',
+                src: 'example/example.js',
                 dest: 'example/bundle.js',
                 options: {
                     debug: true,

@@ -17,7 +17,7 @@ DropzoneComponent = React.createClass({
     getDjsConfig: function () {
         var options,
             defaults = {
-                url: this.props.config.postUrl,
+                url: this.props.config.postUrl ? this.props.config.postUrl : null,
                 headers: {
                     'Access-Control-Allow-Credentials': true,
                     'Access-Control-Allow-Headers': 'Content-Type, X-Requested-With, X-PINGOTHER, X-File-Name, Cache-Control',
@@ -72,7 +72,7 @@ DropzoneComponent = React.createClass({
         var icons = [],
             files = this.state.files,
             config = this.props.config,
-            className = (this.props.className) ? 'filepicker dropzone' + this.props.className : 'filepicker dropzone';
+            className = (this.props.className) ? 'filepicker dropzone ' + this.props.className : 'filepicker dropzone';
 
         if (config.showFiletypeIcon && config.allowedFiletypes && (!files || files.length < 1)) {
             for (var i = 0; i < this.props.config.allowedFiletypes.length; i = i + 1) {
@@ -80,12 +80,21 @@ DropzoneComponent = React.createClass({
             }
         }
 
-        return (
-            <div className={className}>
-                {icons}
-                {this.props.children}
-            </div>
-        );
+        if (!this.props.config.postUrl && this.props.action) {
+            return (
+                <form action={this.props.action} className={className}>
+                    {icons}
+                    {this.props.children}
+                </form>
+            );
+        } else {
+            return (
+                <div className={className}>
+                    {icons}
+                    {this.props.children}
+                </div>
+            );
+        }
     },
 
     /**

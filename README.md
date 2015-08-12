@@ -49,8 +49,23 @@ function removeFile () {
 ```
 
 ##### Usage Without Automatic Posting
-If you want to use this component without posting automatically to a URL but instead do the posting yourself, then you can just leave the `postUrl` option empty and handle the displaying of progress by yourself using the provided event handlers.
+If you want to use this component without posting automatically to a URL but instead do the posting yourself, then you can just leave the `postUrl` option empty and handle the displaying of progress by yourself using the provided event handlers. In this case, Dropzone.js requires that the Dropzone Component is creates as a `<form>` with the `action` attribute set. To use this feature, use the component like so:
 
+```
+var componentConfig = {
+    allowedFiletypes: ['.jpg', '.png', '.gif'],
+    showFiletypeIcon: true
+    // Notice how there's no postUrl set here
+};
+
+React.render(
+    <DropzoneComponent config={componentConfig} 
+                       action="uploads.php"
+                       eventHandlers={eventHandlers} 
+                       djsConfig={djsConfig} />, 
+    document.getElementById('content')
+);
+```
 
 ### Callbacks
 Callbacks can be provided in an object literal. 
