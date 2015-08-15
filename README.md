@@ -8,8 +8,15 @@ You [can see a demo of the uploader with minimal configuration here](http://reac
 ## Usage
 The component is initialized with a configuration object. Optional are a list of event handlers and a configuration object for dropzone.js.
 
+If you are using one of the many module solutions, you can simply install and require this component like shown below. The package's main entry point is `lib/dropzone.js`, which gives you all the dropzone components. If you're rolling with ES6/ES2015, feel free to use `src/dropzone.js`. If you don't want any trouble at all, just add `dist/dropzone.min.js` as a script to your app and use `<DropzoneComponent />`.
+
+```
+npm install react-dropzone-component
+```
+
 ```js
 var React = require('react');
+var DropzoneComponent = require('react-dropzone-component');
 
 React.render(
     <DropzoneComponent config={componentConfig} 
