@@ -155,6 +155,24 @@ var djsConfig = {
 }
 ```
 
+### Add Custom Parameters
+To add custom parameters to your request, add a `params` property to your Dropzone.js configuration object. You can check out the included example by running `grunt params`.
+
+```
+var djsConfig = {
+    addRemoveLinks: true,
+    params: {
+        myParameter: "I'm a parameter!"
+    }
+};
+
+var componentConfig = {
+    postUrl: '/uploadHandler'
+};
+
+React.render(<DropzoneComponent config={componentConfig} djsConfig={djsConfig} />, document.getElementById('content'));
+```
+
 ## Server Example
 This component comes with a small server example. To try it out, simply run `npm install` and then `grunt` from the component's folder. Visit `http://localhost:8000/example/` to see the uploads working. 
 
