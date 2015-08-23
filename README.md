@@ -5,6 +5,14 @@ You [can see a demo of the uploader with minimal configuration here](http://reac
 
 ![](https://raw.githubusercontent.com/felixrieseberg/React-Dropzone/master/.dropzone.gif)
 
+ * [Simple Usage Example](#usage)
+   * [Accessing the Dropzone.js object](#accessing-the-dropzone-object)
+   * [Usage without automatic posting](#usage-without-automatic-posting)
+   * [Custom Preview Template](#custom-preview-template)
+   * [Custom Post Parameters](#custom-post-parameters)
+ * [Callbacks](#callbacks)
+ * [Server Example](#server-example)
+
 ## Usage
 The component is initialized with a configuration object. Optional are a list of event handlers and a configuration object for dropzone.js.
 
@@ -74,6 +82,44 @@ React.render(
 );
 ```
 
+##### Custom Preview Template
+The djsconfig property is compatible with all of the options in the official [DropzoneJS documentation](http://www.dropzonejs.com/). Updating the preview template can be done as follows:
+
+```js
+var djsConfig = {
+  previewTemplate: React.renderToStaticMarkup(
+    <div className="dz-preview dz-file-preview">
+      <div className="dz-details">
+        <div className="dz-filename"><span data-dz-name></span></div>
+        <img data-dz-thumbnail />
+      </div>
+      <div className="dz-progress"><span className="dz-upload" data-dz-uploadprogress></span></div>
+      <div className="dz-success-mark"><span>✔</span></div>
+      <div className="dz-error-mark"><span>✘</span></div>
+      <div className="dz-error-message"><span data-dz-errormessage></span></div>
+    </div>
+  )
+}
+```
+
+##### Custom Post Parameters
+To add custom parameters to your request, add a `params` property to your Dropzone.js configuration object. You can check out the included example by running `grunt params`.
+
+```
+var djsConfig = {
+    addRemoveLinks: true,
+    params: {
+        myParameter: "I'm a parameter!"
+    }
+};
+
+var componentConfig = {
+    postUrl: '/uploadHandler'
+};
+
+React.render(<DropzoneComponent config={componentConfig} djsConfig={djsConfig} />, document.getElementById('content'));
+```
+
 ### Callbacks
 Callbacks can be provided in an object literal. 
 
@@ -133,44 +179,6 @@ var callbackArray = [
 var simpleCallBack = function () {
     console.log('I\'m a simple callback');
 };
-```
-
-### Custom Preview Template
-The djsconfig property is compatible with all of the options in the official [DropzoneJS documentation](http://www.dropzonejs.com/). Updating the preview template can be done as follows:
-
-```js
-var djsConfig = {
-  previewTemplate: React.renderToStaticMarkup(
-    <div className="dz-preview dz-file-preview">
-      <div className="dz-details">
-        <div className="dz-filename"><span data-dz-name></span></div>
-        <img data-dz-thumbnail />
-      </div>
-      <div className="dz-progress"><span className="dz-upload" data-dz-uploadprogress></span></div>
-      <div className="dz-success-mark"><span>✔</span></div>
-      <div className="dz-error-mark"><span>✘</span></div>
-      <div className="dz-error-message"><span data-dz-errormessage></span></div>
-    </div>
-  )
-}
-```
-
-### Add Custom Parameters
-To add custom parameters to your request, add a `params` property to your Dropzone.js configuration object. You can check out the included example by running `grunt params`.
-
-```
-var djsConfig = {
-    addRemoveLinks: true,
-    params: {
-        myParameter: "I'm a parameter!"
-    }
-};
-
-var componentConfig = {
-    postUrl: '/uploadHandler'
-};
-
-React.render(<DropzoneComponent config={componentConfig} djsConfig={djsConfig} />, document.getElementById('content'));
 ```
 
 ## Server Example

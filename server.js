@@ -18,6 +18,7 @@ app.post('/uploadHandler', function (req, res) {
     if (req.body) {
         console.dir(req.body);
     }
+    // End Params Block
 
     res.sendStatus(200);
 });
