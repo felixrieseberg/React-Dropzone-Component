@@ -17,7 +17,7 @@
     }
   ],
   "peerDependencies": {
-    "react": ">=0.13.0"
+    "react": ">=0.13 || >0.14.0-alpha"
   },
   "devDependencies": {
     "body-parser": "^1.12.4",
