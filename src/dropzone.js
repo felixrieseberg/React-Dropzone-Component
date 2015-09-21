@@ -63,7 +63,17 @@ DropzoneComponent = React.createClass({
      * Removes dropzone.js (and all its globals) if the component is being unmounted
      */
     componentWillUnmount: function () {
-        this.dropzone.destroy();
+        this.dropzone = this.dropzone.destroy();
+    },
+
+    /**
+     * React 'componentDidUpdate'
+     * If the Dropzone hasn't been created, create it
+     */
+    componentDidUpdate: function () {
+        if (!this.dropzone) {
+            this.dropzone = new Dropzone(React.findDOMNode(this), this.getDjsConfig());
+        }
     },
 
     /**
