@@ -1,5 +1,5 @@
 /*!
- * react-dropzone-component 0.5.3 (dev build at Mon, 21 Sep 2015 17:01:49 GMT) - 
+ * react-dropzone-component 0.5.3 (dev build at Mon, 21 Sep 2015 17:29:41 GMT) - 
  * MIT Licensed
  */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.ReactDropzone = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -68,7 +68,27 @@ DropzoneComponent = React.createClass({displayName: "DropzoneComponent",
      * Removes dropzone.js (and all its globals) if the component is being unmounted
      */
     componentWillUnmount: function () {
-        this.dropzone = this.dropzone.destroy();
+        if (this.dropzone) {
+            var files = this.dropzone.getActiveFiles();
+
+            if (files.length > 0) {
+                // Well, seems like we still have stuff uploading.
+                // This is dirty, but let's keep trying to get rid
+                // of the dropzone until we're done here.
+                var destroyInterval = window.setInterval(function()  {
+                    if (this.queueDestroy = false) {
+                        return window.clearInterval(destroyInterval);
+                    }
+
+                    if (this.dropzone.getActiveFiles().length === 0) {
+                        this.dropzone = this.dropzone.destroy();
+                        return window.clearInterval(destroyInterval);
+                    }
+                }.bind(this), 500);
+            } else {
+                this.dropzone = this.dropzone.destroy();
+            }
+        }
     },
 
     /**
@@ -76,6 +96,8 @@ DropzoneComponent = React.createClass({displayName: "DropzoneComponent",
      * If the Dropzone hasn't been created, create it
      */
     componentDidUpdate: function () {
+        this.queueDestroy = false;
+
         if (!this.dropzone) {
             this.dropzone = new Dropzone(React.findDOMNode(this), this.getDjsConfig());
         }

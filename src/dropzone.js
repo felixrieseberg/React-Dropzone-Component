@@ -63,7 +63,29 @@ DropzoneComponent = React.createClass({
      * Removes dropzone.js (and all its globals) if the component is being unmounted
      */
     componentWillUnmount: function () {
-        this.dropzone = this.dropzone.destroy();
+        if (this.dropzone) {
+            var files = this.dropzone.getActiveFiles();
+
+            if (files.length > 0) {
+                // Well, seems like we still have stuff uploading.
+                // This is dirty, but let's keep trying to get rid
+                // of the dropzone until we're done here.
+                this.queueDestroy = true;
+
+                var destroyInterval = window.setInterval(() => {
+                    if (this.queueDestroy = false) {
+                        return window.clearInterval(destroyInterval);
+                    }
+
+                    if (this.dropzone.getActiveFiles().length === 0) {
+                        this.dropzone = this.dropzone.destroy();
+                        return window.clearInterval(destroyInterval);
+                    }
+                }, 500);
+            } else {
+                this.dropzone = this.dropzone.destroy();
+            }
+        }
     },
 
     /**
@@ -71,6 +93,8 @@ DropzoneComponent = React.createClass({
      * If the Dropzone hasn't been created, create it
      */
     componentDidUpdate: function () {
+        this.queueDestroy = false;
+
         if (!this.dropzone) {
             this.dropzone = new Dropzone(React.findDOMNode(this), this.getDjsConfig());
         }
