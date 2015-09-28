@@ -1,5 +1,5 @@
 /*!
- * react-dropzone-component 0.5.3 (dev build at Mon, 21 Sep 2015 17:29:41 GMT) - 
+ * react-dropzone-component 0.6.0 (dev build at Mon, 28 Sep 2015 20:35:45 GMT) - 
  * MIT Licensed
  */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.ReactDropzone = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
@@ -32,7 +32,7 @@ DropzoneComponent = React.createClass({displayName: "DropzoneComponent",
             };
 
         if (this.props.config.allowedFiletypes && this.props.config.allowedFiletypes.length > 0) {
-            defaults.acceptedFiled = this.props.config.allowedFiletypes;
+            defaults.acceptedFiles = this.props.config.allowedFiletypes;
         }
 
         if (this.props.djsConfig) {
@@ -75,6 +75,8 @@ DropzoneComponent = React.createClass({displayName: "DropzoneComponent",
                 // Well, seems like we still have stuff uploading.
                 // This is dirty, but let's keep trying to get rid
                 // of the dropzone until we're done here.
+                this.queueDestroy = true;
+
                 var destroyInterval = window.setInterval(function()  {
                     if (this.queueDestroy = false) {
                         return window.clearInterval(destroyInterval);

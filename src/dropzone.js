@@ -27,7 +27,7 @@ DropzoneComponent = React.createClass({
             };
 
         if (this.props.config.allowedFiletypes && this.props.config.allowedFiletypes.length > 0) {
-            defaults.acceptedFiled = this.props.config.allowedFiletypes;
+            defaults.acceptedFiles = this.props.config.allowedFiletypes;
         }
 
         if (this.props.djsConfig) {
