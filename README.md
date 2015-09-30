@@ -34,11 +34,11 @@ React.render(
 );
 ```
 
-The configuration allows you to disable the display of CSS file type icons, to set the allowed file types, and to set the URL to which uploads should be posted.
+The configuration allows you to disable the display of CSS file type icons and to set the URL to which uploads should be posted.
 
 ```js
 var componentConfig = {
-    allowedFiletypes: ['.jpg', '.png', '.gif'],
+    iconFiletypes: ['.jpg', '.png', '.gif'],
     showFiletypeIcon: true,
     postUrl: '/uploadHandler'
 };
@@ -68,7 +68,7 @@ If you want to use this component without posting automatically to a URL but ins
 
 ```
 var componentConfig = {
-    allowedFiletypes: ['.jpg', '.png', '.gif'],
+    iconFiletypes: ['.jpg', '.png', '.gif'],
     showFiletypeIcon: true
     // Notice how there's no postUrl set here
 };
