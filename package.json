@@ -45,7 +45,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
-    "dropzone": "^4.0.1"
+    "dropzone": "^4.2.0"
   },
   "scripts": {
     "debug": "gulp --debug",
