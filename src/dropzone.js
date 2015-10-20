@@ -7,6 +7,17 @@ var React = require('react'),
 
 DropzoneComponent = React.createClass({
     /**
+     * Ensure we always have props to work with.
+     */
+    getDefaultProps: function () {
+        return {
+          djsConfig: {},
+          config: {},
+          eventHandlers: {}
+        }
+    },
+
+    /**
      * Configuration of Dropzone.js. Defaults are
      * overriden overriden by the 'djsConfig' property
      * For a full list of possible configurations,
