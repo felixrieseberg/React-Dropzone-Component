@@ -56,6 +56,6 @@
     "react": "global:React",
     "react/addons": "global:React"
   },
-  "main": "./lib/dropzone.js",
+  "main": "./lib/react-dropzone.js",
   "standalone": "React-Dropzone"
 }
