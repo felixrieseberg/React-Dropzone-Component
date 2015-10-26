@@ -1,7 +1,8 @@
 'use strict';
 
-var React = require('../node_modules/react');
-var DropzoneComponent = require('../lib/dropzone.js');
+var React = require('react');
+var ReactDOM = require('../node_modules/react-dom');
+var DropzoneComponent = require('../lib/react-dropzone.js');
 
 var componentConfig = {
     allowedFiletypes: ['.jpg', '.png', '.gif'],
@@ -41,7 +42,7 @@ var simpleCallBack = function () {
 
 /**
  * Attach event handlers here to be notified
- * for pretty much any event. 
+ * for pretty much any event.
  * Arrays are accepted.
  */
 var eventHandlers = {
@@ -65,8 +66,8 @@ var eventHandlers = {
     canceled: null,
     maxfilesreached: null,
     maxfilesexceeded: null,
-    // All of these receive a list of files as first parameter 
-    // and are only called if the uploadMultiple option 
+    // All of these receive a list of files as first parameter
+    // and are only called if the uploadMultiple option
     // in djsConfig is true:
     processingmultiple: null,
     sendingmultiple: null,
@@ -80,10 +81,10 @@ var eventHandlers = {
 }
 
 // Render
-React.render(
-    <DropzoneComponent config={componentConfig} 
-                       eventHandlers={eventHandlers} 
-                       djsConfig={djsConfig} />, 
+ReactDOM.render(
+    <DropzoneComponent config={componentConfig}
+                       eventHandlers={eventHandlers}
+                       djsConfig={djsConfig} />,
     document.getElementById('content')
 );
 
@@ -95,11 +96,11 @@ var componentConfigWithoutPostUrl = {
     showFiletypeIcon: true,
 };
 
-React.render(
-    <DropzoneComponent config={componentConfigWithoutPostUrl} 
+ReactDOM.render(
+    <DropzoneComponent config={componentConfigWithoutPostUrl}
                        eventHandlers={eventHandlers}
                        action="post.php"
-                       djsConfig={djsConfig} />, 
+                       djsConfig={djsConfig} />,
     document.getElementById('content')
 );
 */
