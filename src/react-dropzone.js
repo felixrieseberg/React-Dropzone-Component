@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react'),
+    ReactDOM = require('react-dom'),
     Helpers = require('./helpers'),
     IconComponent = require('./icon'),
     Dropzone, DropzoneComponent;
@@ -54,7 +55,7 @@ DropzoneComponent = React.createClass({
             console.info('Neither postUrl nor a "drop" eventHandler specified, the React-Dropzone component might misbehave.');
         }
 
-        this.dropzone = new Dropzone(React.findDOMNode(self), options);
+        this.dropzone = new Dropzone(ReactDOM.findDOMNode(self), options);
         this.setupEvents();
     },
 
@@ -96,7 +97,7 @@ DropzoneComponent = React.createClass({
         this.queueDestroy = false;
 
         if (!this.dropzone) {
-            this.dropzone = new Dropzone(React.findDOMNode(this), this.getDjsConfig());
+            this.dropzone = new Dropzone(ReactDOM.findDOMNode(this), this.getDjsConfig());
         }
     },
 

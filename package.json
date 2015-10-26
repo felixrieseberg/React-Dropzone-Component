@@ -40,7 +40,8 @@
     "gulp-util": "^3.0.4",
     "jshint-stylish": "^1.0.1",
     "multer": "^0.1.8",
-    "react": ">=0.13.0",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
     "reactify": "^1.1.1",
     "tape": "^3.5.0",
     "vinyl-source-stream": "^1.1.0"
