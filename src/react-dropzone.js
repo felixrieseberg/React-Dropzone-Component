@@ -102,6 +102,14 @@ DropzoneComponent = React.createClass({
     },
 
     /**
+     * React 'componentWillUpdate'
+     * Update Dropzone options each time the component updates.
+     */
+    componentWillUpdate: function() {
+        this.dropzone.options = this.getDjsConfig()
+    },
+
+    /**
      * React 'render'
      */
     render: function () {
