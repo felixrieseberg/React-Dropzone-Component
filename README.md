@@ -10,6 +10,7 @@ You [can see a demo of the uploader with minimal configuration here](http://reac
    * [Usage without automatic posting](#usage-without-automatic-posting)
    * [Custom Preview Template](#custom-preview-template)
    * [Custom Post Parameters](#custom-post-parameters)
+   * [Updating the Component's Properties](#updating-the-components-properties)
  * [Callbacks](#callbacks)
  * [Server Example](#server-example)
 
