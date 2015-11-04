@@ -106,7 +106,7 @@ DropzoneComponent = React.createClass({
      * Update Dropzone options each time the component updates.
      */
     componentWillUpdate: function() {
-        this.dropzone.options = this.getDjsConfig()
+        this.dropzone.options = Helpers.extend(true, {}, this.props.djsConfig, this.dropzone.options);
     },
 
     /**

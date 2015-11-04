@@ -183,6 +183,11 @@ var simpleCallBack = function () {
 };
 ```
 
+#### Updating the Component's Properties
+This React Component is a wrapper around Dropzone.js - meaning that Dropzone.js is not aware of the React component life cycle. When you update the component's properties, we will use a copy of jQuery's `extend` method ([see documentation](https://api.jquery.com/jquery.extend/)) to merge new options into the Dropzone's properties object. 
+
+If you want to fundamentally change things about your dropzone, we recommend that you either modify the Dropzone object directly or destroy and recreate the component.
+
 ## Server Example
 This component comes with a small server example. To try it out, simply run `npm install` and then `grunt` from the component's folder. Visit `http://localhost:8000/example/` to see the uploads working. 
 
