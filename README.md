@@ -89,8 +89,10 @@ React.render(
 The djsconfig property is compatible with all of the options in the official [DropzoneJS documentation](http://www.dropzonejs.com/). Updating the preview template can be done as follows:
 
 ```js
+var ReactDOMServer = require('react-dom/server');
+
 var djsConfig = {
-  previewTemplate: React.renderToStaticMarkup(
+  previewTemplate: ReactDOMServer.renderToStaticMarkup(
     <div className="dz-preview dz-file-preview">
       <div className="dz-details">
         <div className="dz-filename"><span data-dz-name></span></div>
