@@ -5,7 +5,7 @@ var ReactDOM = require('../node_modules/react-dom');
 var DropzoneComponent = require('../lib/react-dropzone.js');
 
 var componentConfig = {
-    allowedFiletypes: ['.jpg', '.png', '.gif'],
+    iconFiletypes: ['.jpg', '.png', '.gif'],
     showFiletypeIcon: true,
     postUrl: '/uploadHandler'
 };
@@ -16,7 +16,8 @@ var componentConfig = {
  * http://www.dropzonejs.com/#configuration
  */
 var djsConfig = {
-    addRemoveLinks: true
+    addRemoveLinks: true,
+    acceptedFiles: "image/jpeg,image/png,image/gif"
 };
 
 /**
@@ -92,7 +93,7 @@ ReactDOM.render(
 // Uncomment to check out
 /*
 var componentConfigWithoutPostUrl = {
-    allowedFiletypes: ['.jpg', '.png', '.gif'],
+    iconFiletypes: ['.jpg', '.png', '.gif'],
     showFiletypeIcon: true,
 };
 
