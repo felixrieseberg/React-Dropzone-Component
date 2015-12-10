@@ -21,6 +21,7 @@
     "react": ">=0.13 || >0.14.0-alpha"
   },
   "devDependencies": {
+    "babel-jest": "^6.0.1",
     "body-parser": "^1.12.4",
     "browserify": "^9.0.3",
     "browserify-shim": "^3.8.3",
@@ -38,10 +39,13 @@
     "gulp-streamify": "0.0.5",
     "gulp-uglify": "^1.1.0",
     "gulp-util": "^3.0.4",
+    "jest-cli": "^0.8.1",
     "jshint-stylish": "^1.0.1",
     "multer": "^0.1.8",
     "react": "^0.14.0",
+    "react-addons-test-utils": "^0.14.3",
     "react-dom": "^0.14.0",
+    "react-tools": "^0.13.3",
     "reactify": "^1.1.1",
     "tape": "^3.5.0",
     "vinyl-source-stream": "^1.1.0"
@@ -52,7 +56,14 @@
   "scripts": {
     "debug": "gulp --debug",
     "dist": "gulp bundle-js --production --release && gulp bundle-js --development --release",
-    "watch": "gulp"
+    "watch": "gulp",
+    "test": "jest"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/preprocessor.js",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/node_modules/*"
+    ]
   },
   "browserify-shim": {
     "react": "global:React",
