@@ -169,7 +169,7 @@ var eventHandlers = {
     // Special Events
     totaluploadprogress: null,
     reset: null,
-    queuecompleted: null
+    queuecomplete: null
 }
 ```
 
