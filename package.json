@@ -1,7 +1,7 @@
 {
   "name": "react-dropzone-component",
   "description": "A Dropzone Component for ReactJS",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "license": "MIT",
   "repository": "felixrieseberg/React-Dropzone",
   "maintainers": [
@@ -71,7 +71,9 @@
     "react-dom": "global:ReactDOM"
   },
   "browserify": {
-    "transform": [ "browserify-shim" ]
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "main": "./lib/react-dropzone.js",
   "standalone": "React-Dropzone"
