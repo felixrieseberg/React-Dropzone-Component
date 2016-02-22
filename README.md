@@ -31,6 +31,7 @@ npm install react-dropzone-component
 
 ```js
 var React = require('react');
+var ReactDOM = require('react-dom');
 var DropzoneComponent = require('react-dropzone-component');
 
 React.render(

@@ -67,7 +67,11 @@
   },
   "browserify-shim": {
     "react": "global:React",
-    "react/addons": "global:React"
+    "react/addons": "global:React",
+    "react-dom": "global:ReactDOM"
+  },
+  "browserify": {
+    "transform": [ "browserify-shim" ]
   },
   "main": "./lib/react-dropzone.js",
   "standalone": "React-Dropzone"
