@@ -25,6 +25,8 @@ If you are using one of the many module solutions, you can simply install and re
 
 Please ensure that you also include two required CSS files: `styles/filepicker.css` and `node_modules/dropzone/dist/min/dropzone.min.css`. There are currently a bunch of good ways to combine and process CSS in React, so I'll leave it to you to choose whatever method is best for you - the component does not automatically load CSS.
 
+> To use this component without React-DOM, use version `^0.6` - from `0.7` on, we need it.
+
 ```
 npm install react-dropzone-component
 ```
@@ -35,9 +37,9 @@ var ReactDOM = require('react-dom');
 var DropzoneComponent = require('react-dropzone-component');
 
 React.render(
-    <DropzoneComponent config={componentConfig} 
-                       eventHandlers={eventHandlers} 
-                       djsConfig={djsConfig} />, 
+    <DropzoneComponent config={componentConfig}
+                       eventHandlers={eventHandlers}
+                       djsConfig={djsConfig} />,
     document.getElementById('content')
 );
 ```
@@ -55,7 +57,7 @@ var componentConfig = {
 ##### Accessing the Dropzone Object
 There are a bunch of operations that might require accessing the dropzone object, especially when wanting to call [dropzone methods](http://www.dropzonejs.com/#dropzone-methods).
 
-To get said object, use the `init` event, whose callback will receive a reference to the dropzone object as a parameter. 
+To get said object, use the `init` event, whose callback will receive a reference to the dropzone object as a parameter.
 
 ```JS
 var myDropzone;
@@ -82,10 +84,10 @@ var componentConfig = {
 };
 
 React.render(
-    <DropzoneComponent config={componentConfig} 
+    <DropzoneComponent config={componentConfig}
                        action="uploads.php"
-                       eventHandlers={eventHandlers} 
-                       djsConfig={djsConfig} />, 
+                       eventHandlers={eventHandlers}
+                       djsConfig={djsConfig} />,
     document.getElementById('content')
 );
 ```
@@ -131,12 +133,12 @@ React.render(<DropzoneComponent config={componentConfig} djsConfig={djsConfig} /
 ```
 
 ### Callbacks
-Callbacks can be provided in an object literal. 
+Callbacks can be provided in an object literal.
 
 ```js
 var eventHandlers = {
     // This one receives the dropzone object as the first parameter
-    // and can be used to additional work with the dropzone.js 
+    // and can be used to additional work with the dropzone.js
     // object
     init: null,
     // All of these receive the event as first parameter:
@@ -159,8 +161,8 @@ var eventHandlers = {
     canceled: null,
     maxfilesreached: null,
     maxfilesexceeded: null,
-    // All of these receive a list of files as first parameter 
-    // and are only called if the uploadMultiple option 
+    // All of these receive a list of files as first parameter
+    // and are only called if the uploadMultiple option
     // in djsConfig is true:
     processingmultiple: null,
     sendingmultiple: null,
@@ -192,12 +194,12 @@ var simpleCallBack = function () {
 ```
 
 #### Updating the Component's Properties
-This React Component is a wrapper around Dropzone.js - meaning that Dropzone.js is not aware of the React component life cycle. When you update the component's properties, we will use a copy of jQuery's `extend` method ([see documentation](https://api.jquery.com/jquery.extend/)) to merge new options into the Dropzone's properties object. 
+This React Component is a wrapper around Dropzone.js - meaning that Dropzone.js is not aware of the React component life cycle. When you update the component's properties, we will use a copy of jQuery's `extend` method ([see documentation](https://api.jquery.com/jquery.extend/)) to merge new options into the Dropzone's properties object.
 
 If you want to fundamentally change things about your dropzone, we recommend that you either modify the Dropzone object directly or destroy and recreate the component.
 
 ## Server Example
-This component comes with a small server example. To try it out, simply run `npm install` and then `grunt` from the component's folder. Visit `http://localhost:8000/example/` to see the uploads working. 
+This component comes with a small server example. To try it out, simply run `npm install` and then `grunt` from the component's folder. Visit `http://localhost:8000/example/` to see the uploads working.
 
 To check out the (super small) source code for this simple upload-accepting server, check out `src-server/` and `server.js`. **The component works with any server infrastructure, though!**
 
