@@ -17,8 +17,8 @@
     }
   ],
   "peerDependencies": {
-    "react-dom": "^0.14.0",
-    "react": ">=0.13 || >0.14.0-alpha"
+    "react-dom": "^0.14.0 || >0.14.0",
+    "react": ">=0.13 || >0.14.0-alpha || >0.14.0"
   },
   "devDependencies": {
     "babel-jest": "^6.0.1",
@@ -57,7 +57,8 @@
     "debug": "gulp --debug",
     "dist": "gulp bundle-js --production --release && gulp bundle-js --development --release",
     "watch": "gulp",
-    "test": "jest"
+    "test": "jest",
+    "serve": "node server.js"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/preprocessor.js",
@@ -75,6 +76,6 @@
       "browserify-shim"
     ]
   },
-  "main": "./lib/react-dropzone.js",
+  "main": "index.js",
   "standalone": "React-Dropzone"
 }
