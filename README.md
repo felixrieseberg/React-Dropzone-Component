@@ -1,7 +1,7 @@
 ## Dropzone.js Component for React
 [![Build Status](https://travis-ci.org/felixrieseberg/React-Dropzone-Component.svg?branch=master)](https://travis-ci.org/felixrieseberg/React-Dropzone-Component) [![Dependency Status](https://david-dm.org/felixrieseberg/react-dropzone-component.svg)](https://david-dm.org/felixrieseberg/react-dropzone-component) [![npm version](https://badge.fury.io/js/react-dropzone-component.svg)](https://badge.fury.io/js/react-dropzone-component) ![Downloads](https://img.shields.io/npm/dm/react-dropzone-component.svg)
 
-A dropzone component for ReactJS, allowing users to "drag and drop" files into an upload area. The component uses the battle-tested [Dropzone.js](http://www.dropzonejs.com/) to provide a cross-browser-compatible upload component.
+A Dropzone component for ReactJS, allowing users to "drag and drop" files into an upload area. The component uses the battle-tested [Dropzone.js](http://www.dropzonejs.com/) to provide a cross-browser-compatible upload component.
 
 You [can see a demo of the uploader with minimal configuration here](http://reactdropzone.azurewebsites.net/example).
 
@@ -23,7 +23,7 @@ The component is initialized with a configuration object. Optional are a list of
 
 If you are using one of the many module solutions, you can simply install and require this component like shown below. The package's main entry point is `lib/dropzone.js`, which gives you all the dropzone components. If you're rolling with ES6/ES2015, feel free to use `src/dropzone.js`. If you don't want any trouble at all, just add `dist/dropzone.min.js` as a script to your app and use `<DropzoneComponent />`.
 
-> :warning_sign: Ensure that React and ReactDOM are global variables, so that they can be reached on `window.React` or `globa.React`. Many fancy boilerplates are overly fancy and somehow remove those variables. 
+> :warning: Ensure that React and ReactDOM are global variables, so that they can be reached on `window.React` or `globa.React`. Many fancy boilerplates are overly fancy and somehow remove those variables. 
 > 
 > If you are using a fancy boilerplate, you might want to require the lib directly, by using `import DropzoneComponent from 'react-dropzone-component/lib/react-dropzone'` or `require('react-dropzone-component/lib/react-dropzone')`.
 
