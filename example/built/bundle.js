@@ -46,9 +46,8 @@
 
 	'use strict';
 
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(158);
-	var DropzoneComponent = __webpack_require__(159);
+	var React             = __webpack_require__(1);
+	var DropzoneComponent = __webpack_require__(158);
 
 	var componentConfig = {
 	    iconFiletypes: ['.jpg', '.png', '.gif'],
@@ -143,12 +142,12 @@
 	    showFiletypeIcon: true,
 	};
 
-	ReactDOM.render(
-	    <DropzoneComponent config={componentConfigWithoutPostUrl}
-	                       eventHandlers={eventHandlers}
-	                       action="post.php"
-	                       djsConfig={djsConfig} />,
-	    document.getElementById('content')
+	React.render(React.createElement(DropzoneComponent, { 
+	        config: componentConfigWithoutPostUrl,
+	        eventHandlers: eventHandlers,
+	        djsConfig: djsConfig 
+	        action: 'post.php'
+	    }), document.getElementById('content')
 	);
 	*/
 
@@ -1168,7 +1167,7 @@
 	 * will remain to ensure logic does not differ in production.
 	 */
 
-	var invariant = function (condition, format, a, b, c, d, e, f) {
+	function invariant(condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
 	      throw new Error('invariant requires an error message argument');
@@ -1182,15 +1181,16 @@
 	    } else {
 	      var args = [a, b, c, d, e, f];
 	      var argIndex = 0;
-	      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
+	      error = new Error(format.replace(/%s/g, function () {
 	        return args[argIndex++];
 	      }));
+	      error.name = 'Invariant Violation';
 	    }
 
 	    error.framesToPop = 1; // we don't care about invariant's own frame
 	    throw error;
 	  }
-	};
+	}
 
 	module.exports = invariant;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
@@ -9409,6 +9409,7 @@
 	 */
 	var EventInterface = {
 	  type: null,
+	  target: null,
 	  // currentTarget is set when dispatching; no use in copying it here
 	  currentTarget: emptyFunction.thatReturnsNull,
 	  eventPhase: null,
@@ -9442,8 +9443,6 @@
 	  this.dispatchConfig = dispatchConfig;
 	  this.dispatchMarker = dispatchMarker;
 	  this.nativeEvent = nativeEvent;
-	  this.target = nativeEventTarget;
-	  this.currentTarget = nativeEventTarget;
 
 	  var Interface = this.constructor.Interface;
 	  for (var propName in Interface) {
@@ -9454,7 +9453,11 @@
 	    if (normalize) {
 	      this[propName] = normalize(nativeEvent);
 	    } else {
-	      this[propName] = nativeEvent[propName];
+	      if (propName === 'target') {
+	        this.target = nativeEventTarget;
+	      } else {
+	        this[propName] = nativeEvent[propName];
+	      }
 	    }
 	  }
 
@@ -10617,8 +10620,8 @@
 	     */
 	    // autoCapitalize and autoCorrect are supported in Mobile Safari for
 	    // keyboard hints.
-	    autoCapitalize: null,
-	    autoCorrect: null,
+	    autoCapitalize: MUST_USE_ATTRIBUTE,
+	    autoCorrect: MUST_USE_ATTRIBUTE,
 	    // autoSave allows WebKit/Blink to persist values of input fields on page reloads
 	    autoSave: null,
 	    // color is for Safari mask-icon link
@@ -10649,9 +10652,7 @@
 	    httpEquiv: 'http-equiv'
 	  },
 	  DOMPropertyNames: {
-	    autoCapitalize: 'autocapitalize',
 	    autoComplete: 'autocomplete',
-	    autoCorrect: 'autocorrect',
 	    autoFocus: 'autofocus',
 	    autoPlay: 'autoplay',
 	    autoSave: 'autosave',
@@ -13305,7 +13306,10 @@
 	      }
 	    });
 
-	    nativeProps.children = content;
+	    if (content) {
+	      nativeProps.children = content;
+	    }
+
 	    return nativeProps;
 	  }
 
@@ -13730,7 +13734,7 @@
 	    var value = LinkedValueUtils.getValue(props);
 
 	    if (value != null) {
-	      updateOptions(this, props, value);
+	      updateOptions(this, Boolean(props.multiple), value);
 	    }
 	  }
 	}
@@ -16765,11 +16769,14 @@
 	 * @typechecks
 	 */
 
+	/* eslint-disable fb-www/typeof-undefined */
+
 	/**
 	 * Same as document.activeElement but wraps in a try-catch block. In IE it is
 	 * not safe to call document.activeElement if there is nothing focused.
 	 *
-	 * The activeElement will be null only if the document or document body is not yet defined.
+	 * The activeElement will be null only if the document or document body is not
+	 * yet defined.
 	 */
 	'use strict';
 
@@ -16777,7 +16784,6 @@
 	  if (typeof document === 'undefined') {
 	    return null;
 	  }
-
 	  try {
 	    return document.activeElement || document.body;
 	  } catch (e) {
@@ -18517,7 +18523,9 @@
 	  'setValueForProperty': 'update attribute',
 	  'setValueForAttribute': 'update attribute',
 	  'deleteValueForProperty': 'remove attribute',
-	  'dangerouslyReplaceNodeWithMarkupByID': 'replace'
+	  'setValueForStyles': 'update styles',
+	  'replaceNodeWithMarkup': 'replace',
+	  'updateTextContent': 'set textContent'
 	};
 
 	function getTotalTime(measurements) {
@@ -18709,18 +18717,23 @@
 	'use strict';
 
 	var performance = __webpack_require__(145);
-	var curPerformance = performance;
+
+	var performanceNow;
 
 	/**
 	 * Detect if we can use `window.performance.now()` and gracefully fallback to
 	 * `Date.now()` if it doesn't exist. We need to support Firefox < 15 for now
 	 * because of Facebook's testing infrastructure.
 	 */
-	if (!curPerformance || !curPerformance.now) {
-	  curPerformance = Date;
+	if (performance.now) {
+	  performanceNow = function () {
+	    return performance.now();
+	  };
+	} else {
+	  performanceNow = function () {
+	    return Date.now();
+	  };
 	}
-
-	var performanceNow = curPerformance.now.bind(curPerformance);
 
 	module.exports = performanceNow;
 
@@ -18769,7 +18782,7 @@
 
 	'use strict';
 
-	module.exports = '0.14.3';
+	module.exports = '0.14.7';
 
 /***/ },
 /* 147 */
@@ -19737,17 +19750,8 @@
 
 	'use strict';
 
-	module.exports = __webpack_require__(3);
-
-
-/***/ },
-/* 159 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
 	var React = __webpack_require__(1),
-	    ReactDOM = __webpack_require__(158),
+	    ReactDOM = __webpack_require__(159),
 	    Helpers = __webpack_require__(160),
 	    IconComponent = __webpack_require__(161),
 	    Dropzone, DropzoneComponent;
@@ -19963,6 +19967,15 @@
 	});
 
 	module.exports = DropzoneComponent;
+
+
+/***/ },
+/* 159 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = __webpack_require__(3);
 
 
 /***/ },
@@ -20241,6 +20254,7 @@
 	      previewsContainer: null,
 	      hiddenInputContainer: "body",
 	      capture: null,
+	      renameFilename: null,
 	      dictDefaultMessage: "Drop files here to upload",
 	      dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
 	      dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
@@ -20362,7 +20376,7 @@
 	          _ref = file.previewElement.querySelectorAll("[data-dz-name]");
 	          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
 	            node = _ref[_i];
-	            node.textContent = file.name;
+	            node.textContent = this._renameFilename(file.name);
 	          }
 	          _ref1 = file.previewElement.querySelectorAll("[data-dz-size]");
 	          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
@@ -20823,6 +20837,13 @@
 	      }
 	    };
 
+	    Dropzone.prototype._renameFilename = function(name) {
+	      if (typeof this.options.renameFilename !== "function") {
+	        return name;
+	      }
+	      return this.options.renameFilename(name);
+	    };
+
 	    Dropzone.prototype.getFallbackForm = function() {
 	      var existingFallback, fields, fieldsString, form;
 	      if (existingFallback = this.getExistingFallback()) {
@@ -21024,30 +21045,37 @@
 	    };
 
 	    Dropzone.prototype._addFilesFromDirectory = function(directory, path) {
-	      var dirReader, entriesReader;
+	      var dirReader, errorHandler, readEntries;
 	      dirReader = directory.createReader();
-	      entriesReader = (function(_this) {
-	        return function(entries) {
-	          var entry, _i, _len;
-	          for (_i = 0, _len = entries.length; _i < _len; _i++) {
-	            entry = entries[_i];
-	            if (entry.isFile) {
-	              entry.file(function(file) {
-	                if (_this.options.ignoreHiddenFiles && file.name.substring(0, 1) === '.') {
-	                  return;
+	      errorHandler = function(error) {
+	        return typeof console !== "undefined" && console !== null ? typeof console.log === "function" ? console.log(error) : void 0 : void 0;
+	      };
+	      readEntries = (function(_this) {
+	        return function() {
+	          return dirReader.readEntries(function(entries) {
+	            var entry, _i, _len;
+	            if (entries.length > 0) {
+	              for (_i = 0, _len = entries.length; _i < _len; _i++) {
+	                entry = entries[_i];
+	                if (entry.isFile) {
+	                  entry.file(function(file) {
+	                    if (_this.options.ignoreHiddenFiles && file.name.substring(0, 1) === '.') {
+	                      return;
+	                    }
+	                    file.fullPath = "" + path + "/" + file.name;
+	                    return _this.addFile(file);
+	                  });
+	                } else if (entry.isDirectory) {
+	                  _this._addFilesFromDirectory(entry, "" + path + "/" + entry.name);
 	                }
-	                file.fullPath = "" + path + "/" + file.name;
-	                return _this.addFile(file);
-	              });
-	            } else if (entry.isDirectory) {
-	              _this._addFilesFromDirectory(entry, "" + path + "/" + entry.name);
+	              }
+	              readEntries();
 	            }
-	          }
+	            return null;
+	          }, errorHandler);
 	        };
 	      })(this);
-	      return dirReader.readEntries(entriesReader, function(error) {
-	        return typeof console !== "undefined" && console !== null ? typeof console.log === "function" ? console.log(error) : void 0 : void 0;
-	      });
+	      return readEntries();
 	    };
 
 	    Dropzone.prototype.accept = function(file, done) {
@@ -21465,7 +21493,7 @@
 	        }
 	      }
 	      for (i = _m = 0, _ref5 = files.length - 1; 0 <= _ref5 ? _m <= _ref5 : _m >= _ref5; i = 0 <= _ref5 ? ++_m : --_m) {
-	        formData.append(this._getParamName(i), files[i], files[i].name);
+	        formData.append(this._getParamName(i), files[i], this._renameFilename(files[i].name));
 	      }
 	      return this.submitRequest(xhr, formData, files);
 	    };
@@ -21512,7 +21540,7 @@
 
 	  })(Emitter);
 
-	  Dropzone.version = "4.2.0";
+	  Dropzone.version = "4.3.0";
 
 	  Dropzone.options = {};
 
