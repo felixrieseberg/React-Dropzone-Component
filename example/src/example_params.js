@@ -1,8 +1,7 @@
 'use strict';
 
-var React = require('react');
-var ReactDOM = require('../node_modules/react-dom');
-var DropzoneComponent = require('../lib/react-dropzone.js');
+var React             = require('react');
+var DropzoneComponent = require('../../lib/react-dropzone.js');
 
 // Add params to your dropzonejs configuration object, like so:
 var djsConfig = {
@@ -19,4 +18,8 @@ var componentConfig = {
 };
 
 // Render
-ReactDOM.render(<DropzoneComponent config={componentConfig} djsConfig={djsConfig} />, document.getElementById('content'));
+React.render(React.createElement(DropzoneComponent, { 
+        config: componentConfig,
+        djsConfig: djsConfig 
+    }), document.getElementById('content')
+);

@@ -1,8 +1,7 @@
 'use strict';
 
-var React = require('react');
-var ReactDOM = require('../node_modules/react-dom');
-var DropzoneComponent = require('../lib/react-dropzone.js');
+var React             = require('react');
+var DropzoneComponent = require('../../lib/react-dropzone.js');
 
 var componentConfig = {
     iconFiletypes: ['.jpg', '.png', '.gif'],
@@ -26,10 +25,10 @@ var djsConfig = {
  * @type {Array}
  */
 var callbackArray = [
-    function () {
+    function() {
         console.log('Look Ma, I\'m a callback in an array!');
     },
-    function () {
+    function() {
         console.log('Wooooow!');
     }
 ];
@@ -37,7 +36,7 @@ var callbackArray = [
 /**
  * Simple callbacks work too, of course.
  */
-var simpleCallBack = function () {
+var simpleCallBack = function() {
     console.log('I\'m a simple callback');
 };
 
@@ -82,11 +81,11 @@ var eventHandlers = {
 }
 
 // Render
-ReactDOM.render(
-    <DropzoneComponent config={componentConfig}
-                       eventHandlers={eventHandlers}
-                       djsConfig={djsConfig} />,
-    document.getElementById('content')
+React.render(React.createElement(DropzoneComponent, { 
+        config: componentConfig,
+        eventHandlers: eventHandlers,
+        djsConfig: djsConfig 
+    }), document.getElementById('content')
 );
 
 // Render without PostUrl
@@ -97,11 +96,11 @@ var componentConfigWithoutPostUrl = {
     showFiletypeIcon: true,
 };
 
-ReactDOM.render(
-    <DropzoneComponent config={componentConfigWithoutPostUrl}
-                       eventHandlers={eventHandlers}
-                       action="post.php"
-                       djsConfig={djsConfig} />,
-    document.getElementById('content')
+React.render(React.createElement(DropzoneComponent, { 
+        config: componentConfigWithoutPostUrl,
+        eventHandlers: eventHandlers,
+        djsConfig: djsConfig 
+        action: 'post.php'
+    }), document.getElementById('content')
 );
 */

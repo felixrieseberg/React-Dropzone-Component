@@ -10,17 +10,17 @@ const Icon = require('../icon');
 
 describe('Icon Comoponent', () => {
 
-  it('Renders an Icon', () => {
+    it('Renders an Icon', () => {
 
-    // Render a checkbox with label in the document
-    var icon = TestUtils.renderIntoDocument(
-      <Icon filetype="PNG" />
-    );
+        // Render a checkbox with label in the document
+        var icon = TestUtils.renderIntoDocument(
+            <Icon filetype="PNG" />
+        );
 
-    var iconNode = ReactDOM.findDOMNode(icon);
+        var iconNode = ReactDOM.findDOMNode(icon);
 
-    // Verify that it's Off by default
-    expect(iconNode._attributes['data-filetype']).toBeTruthy()
-  });
+        // Verify that it's Off by default
+        expect(iconNode._attributes['data-filetype']).toBeTruthy()
+    });
 
 });

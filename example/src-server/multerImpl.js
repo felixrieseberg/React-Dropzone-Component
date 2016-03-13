@@ -3,7 +3,7 @@ function MulterImpl(config) {
 
     this.init = function () {
         var multer = require('multer');
-        var uploadDir = !config.uplodaDir ? defaultDest : config.uplodaDir;
+        var uploadDir = !config.uploadDir ? defaultDest : config.uploadDir;
 
         var options = {
             dest: uploadDir,

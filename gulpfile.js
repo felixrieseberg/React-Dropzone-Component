@@ -1,30 +1,30 @@
-var browserify = require('browserify')
-var del = require('del')
-var gulp = require('gulp')
-var source = require('vinyl-source-stream')
+var del       = require('del');
+var gulp      = require('gulp');
+var webpack   = require('webpack-stream');
 
-var header = require('gulp-header')
-var jshint = require('gulp-jshint')
-var rename = require('gulp-rename')
-var plumber = require('gulp-plumber')
-var react = require('gulp-react')
-var streamify = require('gulp-streamify')
-var uglify = require('gulp-uglify')
-var gutil = require('gulp-util')
+var header    = require('gulp-header');
+var jshint    = require('gulp-jshint');
+var rename    = require('gulp-rename');
+var plumber   = require('gulp-plumber');
+var react     = require('gulp-react');
+var streamify = require('gulp-streamify');
+var uglify    = require('gulp-uglify');
+var gutil     = require('gulp-util');
 
-var pkg = require('./package.json')
-var devBuild = gutil.env.release ? '' : ' (dev build at ' + (new Date()).toUTCString() + ')'
+var pkg = require('./package.json');
+var devBuild = gutil.env.release ? '' : ' (dev build at ' + (new Date()).toUTCString() + ')';
 var distHeader = '/*!\n\
  * <%= pkg.name %> <%= pkg.version %><%= devBuild %> - <%= pkg.homepage %>\n\
+ * Copyright (C) Felix Rieseberg <felix@felixrieseberg.com>\n\
  * <%= pkg.license %> Licensed\n\
- */\n'
+ */\n';
 
-var jsSrcPaths = './src/**/*.js*'
-var jsLibPaths = './lib/**/*.js'
+var jsSrcPaths = './src/*.js';
+var jsLibPaths = './lib/**/*.js';
 
 gulp.task('clean-lib', function(cb) {
-    del(jsLibPaths, cb)
-})
+    del('./lib', cb);
+});
 
 gulp.task('transpile-js', ['clean-lib'], function() {
     return gulp.src(jsSrcPaths)
@@ -32,47 +32,36 @@ gulp.task('transpile-js', ['clean-lib'], function() {
         .pipe(react({
             harmony: true
         }))
-        .pipe(gulp.dest('./lib'))
-})
+        .pipe(gulp.dest('./lib'));
+});
 
 gulp.task('lint-js', ['transpile-js'], function() {
     return gulp.src(jsLibPaths)
         .pipe(jshint('./.jshintrc'))
-        .pipe(jshint.reporter('jshint-stylish'))
-})
+        .pipe(jshint.reporter('jshint-stylish'));
+});
 
 gulp.task('bundle-js', ['lint-js'], function() {
-    var b = browserify('./lib/react-dropzone.js', {
-        debug: !!gutil.env.debug,
-        standalone: pkg.standalone,
-        detectGlobals: false
-    })
-    b.transform('browserify-shim')
-
-    var stream = b.bundle()
-        .pipe(source('dropzone.js'))
+    var stream = gulp.src('./lib/react-dropzone.js')
         .pipe(streamify(header(distHeader, {
             pkg: pkg,
             devBuild: devBuild
         })))
+        .pipe(webpack(require('./webpack.config.js')))
         .pipe(gulp.dest('./dist'))
+        .pipe(rename('react-dropzone.min.js'))
+        .pipe(streamify(uglify()))
+        .pipe(streamify(header(distHeader, {
+            pkg: pkg,
+            devBuild: devBuild
+        })))
+        .pipe(gulp.dest('./dist'));
 
-    if (gutil.env.production) {
-        stream = stream
-            .pipe(rename('dropzone.min.js'))
-            .pipe(streamify(uglify()))
-            .pipe(streamify(header(distHeader, {
-                pkg: pkg,
-                devBuild: devBuild
-            })))
-            .pipe(gulp.dest('./dist'))
-    }
-
-    return stream
-})
+    return stream;
+});
 
 gulp.task('watch', function() {
-    gulp.watch(jsSrcPaths, ['bundle-js'])
-})
+    gulp.watch(jsSrcPaths, ['bundle-js']);
+});
 
-gulp.task('default', ['bundle-js', 'watch'])
+gulp.task('default', ['transpile-js', 'bundle-js']);

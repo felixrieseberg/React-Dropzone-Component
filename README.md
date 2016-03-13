@@ -117,7 +117,7 @@ var djsConfig = {
 ```
 
 ##### Custom Post Parameters
-To add custom parameters to your request, add a `params` property to your Dropzone.js configuration object. You can check out the included example by running `grunt params`.
+To add custom parameters to your request, add a `params` property to your Dropzone.js configuration object.
 
 ```
 var djsConfig = {
@@ -201,9 +201,9 @@ This React Component is a wrapper around Dropzone.js - meaning that Dropzone.js 
 If you want to fundamentally change things about your dropzone, we recommend that you either modify the Dropzone object directly or destroy and recreate the component.
 
 ## Server Example
-This component comes with a small server example. To try it out, simply run `npm install` and then `grunt` from the component's folder. Visit `http://localhost:8000/example/` to see the uploads working.
+This component comes with a small server example. To try it out, simply run `npm install` and `npm start` from the `example` folder. Visit `http://localhost:8000/example/` to see the uploads working.
 
-To check out the (super small) source code for this simple upload-accepting server, check out `src-server/` and `server.js`. **The component works with any server infrastructure, though!**
+To check out the (super small) source code for this simple upload-accepting server, check out `example/src-server/` and `example/server.js`. **The component works with any server infrastructure, though!**
 
 ## License
 MIT. For details, please consult `README.md`.
