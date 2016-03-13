@@ -57,6 +57,6 @@
       "<rootDir>/node_modules/*"
     ]
   },
-  "main": "index.js",
+  "main": "lib/react-dropzone.js",
   "standalone": "React-Dropzone"
 }
