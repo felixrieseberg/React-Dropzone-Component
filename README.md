@@ -104,13 +104,13 @@ var djsConfig = {
   previewTemplate: ReactDOMServer.renderToStaticMarkup(
     <div className="dz-preview dz-file-preview">
       <div className="dz-details">
-        <div className="dz-filename"><span data-dz-name></span></div>
-        <img data-dz-thumbnail />
+        <div className="dz-filename"><span data-dz-name="true"></span></div>
+        <img data-dz-thumbnail="true" />
       </div>
-      <div className="dz-progress"><span className="dz-upload" data-dz-uploadprogress></span></div>
+      <div className="dz-progress"><span className="dz-upload" data-dz-uploadprogress="true"></span></div>
       <div className="dz-success-mark"><span>✔</span></div>
       <div className="dz-error-mark"><span>✘</span></div>
-      <div className="dz-error-message"><span data-dz-errormessage></span></div>
+      <div className="dz-error-message"><span data-dz-errormessage="true"></span></div>
     </div>
   )
 }
