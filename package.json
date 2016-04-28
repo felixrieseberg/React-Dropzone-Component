@@ -17,8 +17,8 @@
     }
   ],
   "peerDependencies": {
-    "react-dom": "^0.14.0 || >0.14.0",
-    "react": ">=0.13 || >0.14.0-alpha || >0.14.0"
+    "react-dom": "^0.14.0 || >0.14.0 || ^15.0.1",
+    "react": ">=0.13 || >0.14.0-alpha || >0.14.0 || ^15.0.1"
   },
   "devDependencies": {
     "babel-jest": "^6.0.1",
