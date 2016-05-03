@@ -6,7 +6,7 @@ var express     = require('express'),
     app         = express();
 
 app.set('port', process.env.PORT || 3000);
-app.use(express.static('./'));
+app.use(express.static('../'));
 app.use(new MulterImpl({}).init());
 
 app.post('/uploadHandler', function (req, res) {
