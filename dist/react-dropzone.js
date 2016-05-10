@@ -162,16 +162,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Update Dropzone options each time the component updates.
 	     */
 	    componentWillUpdate: function() {
-	        var djsConfigObj     = {}, 
-	            postUrlConfigObj = {};
+	        var djsConfigObj, postUrlConfigObj;
 
-	        djsConfigObj     = this.props.djsConfig      ? this.props.djsConfig : {};        
-	        try
-	        {
+	        djsConfigObj = this.props.djsConfig ? this.props.djsConfig : {};        
+	        try {
 	            postUrlConfigObj = this.props.config.postUrl ? {url: this.props.config.postUrl} : {};            
-	        }
-	        catch (err)
-	        {   
+	        } catch (err) {   
+	            postUrlConfigObj = {};
 	        }
 	        
 	        this.dropzone.options = Helpers.extend(true, {}, this.dropzone.options, djsConfigObj, postUrlConfigObj);
