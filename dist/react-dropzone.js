@@ -3,10 +3,10 @@
 		module.exports = factory(require("React"), require("ReactDOM"));
 	else if(typeof define === 'function' && define.amd)
 		define(["React", "ReactDOM"], factory);
-	else {
-		var a = typeof exports === 'object' ? factory(require("React"), require("ReactDOM")) : factory(root["React"], root["ReactDOM"]);
-		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
-	}
+	else if(typeof exports === 'object')
+		exports["DropzoneComponent"] = factory(require("React"), require("ReactDOM"));
+	else
+		root["DropzoneComponent"] = factory(root["React"], root["ReactDOM"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_2__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -162,7 +162,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	     * Update Dropzone options each time the component updates.
 	     */
 	    componentWillUpdate: function() {
-	        this.dropzone.options = Helpers.extend(true, {}, this.props.djsConfig, this.dropzone.options);
+	        var djsConfigObj, postUrlConfigObj;
+
+	        djsConfigObj = this.props.djsConfig ? this.props.djsConfig : {};        
+	        try {
+	            postUrlConfigObj = this.props.config.postUrl ? {url: this.props.config.postUrl} : {};            
+	        } catch (err) {   
+	            postUrlConfigObj = {};
+	        }
+	        
+	        this.dropzone.options = Helpers.extend(true, {}, this.dropzone.options, djsConfigObj, postUrlConfigObj);
 	    },
 
 	    /**
@@ -563,6 +572,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      previewsContainer: null,
 	      hiddenInputContainer: "body",
 	      capture: null,
+	      renameFilename: null,
 	      dictDefaultMessage: "Drop files here to upload",
 	      dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
 	      dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
@@ -684,7 +694,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _ref = file.previewElement.querySelectorAll("[data-dz-name]");
 	          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
 	            node = _ref[_i];
-	            node.textContent = file.name;
+	            node.textContent = this._renameFilename(file.name);
 	          }
 	          _ref1 = file.previewElement.querySelectorAll("[data-dz-size]");
 	          for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
@@ -1145,6 +1155,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	    };
 
+	    Dropzone.prototype._renameFilename = function(name) {
+	      if (typeof this.options.renameFilename !== "function") {
+	        return name;
+	      }
+	      return this.options.renameFilename(name);
+	    };
+
 	    Dropzone.prototype.getFallbackForm = function() {
 	      var existingFallback, fields, fieldsString, form;
 	      if (existingFallback = this.getExistingFallback()) {
@@ -1346,30 +1363,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 
 	    Dropzone.prototype._addFilesFromDirectory = function(directory, path) {
-	      var dirReader, entriesReader;
+	      var dirReader, errorHandler, readEntries;
 	      dirReader = directory.createReader();
-	      entriesReader = (function(_this) {
-	        return function(entries) {
-	          var entry, _i, _len;
-	          for (_i = 0, _len = entries.length; _i < _len; _i++) {
-	            entry = entries[_i];
-	            if (entry.isFile) {
-	              entry.file(function(file) {
-	                if (_this.options.ignoreHiddenFiles && file.name.substring(0, 1) === '.') {
-	                  return;
+	      errorHandler = function(error) {
+	        return typeof console !== "undefined" && console !== null ? typeof console.log === "function" ? console.log(error) : void 0 : void 0;
+	      };
+	      readEntries = (function(_this) {
+	        return function() {
+	          return dirReader.readEntries(function(entries) {
+	            var entry, _i, _len;
+	            if (entries.length > 0) {
+	              for (_i = 0, _len = entries.length; _i < _len; _i++) {
+	                entry = entries[_i];
+	                if (entry.isFile) {
+	                  entry.file(function(file) {
+	                    if (_this.options.ignoreHiddenFiles && file.name.substring(0, 1) === '.') {
+	                      return;
+	                    }
+	                    file.fullPath = "" + path + "/" + file.name;
+	                    return _this.addFile(file);
+	                  });
+	                } else if (entry.isDirectory) {
+	                  _this._addFilesFromDirectory(entry, "" + path + "/" + entry.name);
 	                }
-	                file.fullPath = "" + path + "/" + file.name;
-	                return _this.addFile(file);
-	              });
-	            } else if (entry.isDirectory) {
-	              _this._addFilesFromDirectory(entry, "" + path + "/" + entry.name);
+	              }
+	              readEntries();
 	            }
-	          }
+	            return null;
+	          }, errorHandler);
 	        };
 	      })(this);
-	      return dirReader.readEntries(entriesReader, function(error) {
-	        return typeof console !== "undefined" && console !== null ? typeof console.log === "function" ? console.log(error) : void 0 : void 0;
-	      });
+	      return readEntries();
 	    };
 
 	    Dropzone.prototype.accept = function(file, done) {
@@ -1787,7 +1811,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }
 	      }
 	      for (i = _m = 0, _ref5 = files.length - 1; 0 <= _ref5 ? _m <= _ref5 : _m >= _ref5; i = 0 <= _ref5 ? ++_m : --_m) {
-	        formData.append(this._getParamName(i), files[i], files[i].name);
+	        formData.append(this._getParamName(i), files[i], this._renameFilename(files[i].name));
 	      }
 	      return this.submitRequest(xhr, formData, files);
 	    };
@@ -1834,7 +1858,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  })(Emitter);
 
-	  Dropzone.version = "4.2.0";
+	  Dropzone.version = "4.3.0";
 
 	  Dropzone.options = {};
 
