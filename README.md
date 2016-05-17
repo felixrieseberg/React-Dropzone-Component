@@ -201,7 +201,7 @@ This React Component is a wrapper around Dropzone.js - meaning that Dropzone.js 
 If you want to fundamentally change things about your dropzone, we recommend that you either modify the Dropzone object directly or destroy and recreate the component.
 
 ## Server Example
-This component comes with a small server example. To try it out, simply run `npm install` and `npm start` from the `example` or `example2` folder. Visit `http://localhost:8000/example/` to see the uploads working.
+This component comes with a small server example. To try it out, simply run `npm install` and `npm start` from the `example` folder. Visit `http://localhost:8000/example/` to see the uploads working.
 
 To check out the (super small) source code for this simple upload-accepting server, check out `example/src-server/` and `example/server.js`. **The component works with any server infrastructure, though!**
 
