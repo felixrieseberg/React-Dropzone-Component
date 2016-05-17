@@ -1,25 +1,29 @@
-function MulterImpl(config) {
-    var defaultDest = './uploads/';
+module.exports = (app) => {
+  const multer = require('multer'); // Grabs Multer
 
-    this.init = function () {
-        var multer = require('multer');
-        var uploadDir = !config.uploadDir ? defaultDest : config.uploadDir;
+  const storage = multer.diskStorage({
+    destination: './uploads/', // Specifies upload location...
 
-        var options = {
-            dest: uploadDir,
-            rename: function (fieldname, filename) {
-                return filename + Date.now();
-            },
-            onFileUploadStart: function (file) {
-                console.log(file.originalname + ' is starting ...');
-            },
-            onFileUploadComplete: function (file) {
-                console.log(file.fieldname + ' uploaded to  ' + file.path);
-            }
-        };
+    filename: function (req, file, cb) {
+      switch (file.mimetype) { // *Mimetype stores the file type, set extensions according to filetype
+        case 'image/jpeg':
+          ext = '.jpeg';
+          break;
+        case 'image/png':
+          ext = '.png';
+          break;
+        case 'image/gif':
+          ext = '.gif';
+          break;
+      }
 
-        return multer(options);
+      cb(null, file.originalname.slice(0, 4) + Date.now() + ext);
     }
-}
+  });
 
-module.exports = MulterImpl;
+  const upload = multer({ storage:  storage});
+
+  app.post('/uploadHandler', upload.single('file'), function (req, res, next) {
+    res.send({ responseText: req.file.path }); // You can send any response to the user here
+  });
+}
