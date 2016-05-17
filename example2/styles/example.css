@@ -1,0 +1,39 @@
+/* React Filepicker Example CSS */
+
+body {
+    font-family: sans-serif;
+}
+
+h2, h3 {
+    color: #000;
+}
+
+h2 a {
+    text-decoration: none;
+    color: #000;
+}
+
+body {
+    background-color: #F7F7F7;
+}
+
+div.example {
+    margin-left: 20px;
+}
+
+div.intro {
+    margin-left: 20px;
+    color: #000;
+}
+
+div#content {
+    width: 500px;
+}
+
+.filepicker.dropzone .dz-preview.dz-image-preview {
+    background: none;
+}
+
+.filepicker.dropzone .dz-preview.dz-image-preview .dz-image {
+    border-radius: 5px;
+}

@@ -1,0 +1,21 @@
+{
+  "name": "react-dropzone-component-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "webpack"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "multer": "^1.1.0",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-dropzone-component": "github:felixrieseberg/react-dropzone-component"
+  }
+}
