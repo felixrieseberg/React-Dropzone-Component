@@ -95,7 +95,7 @@ React.render(
 ```
 
 ##### Custom Preview Template
-The djsconfig property is compatible with all of the options in the official [DropzoneJS documentation](http://www.dropzonejs.com/). Updating the preview template can be done as follows:
+The djsconfig property is compatible with all of the options in the official [DropzoneJS documentation](http://www.dropzonejs.com/#layout). Updating the preview template can be done as follows:
 
 ```js
 var ReactDOMServer = require('react-dom/server');
