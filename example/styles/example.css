@@ -26,8 +26,10 @@ div.intro {
     color: #000;
 }
 
-div#content {
-    width: 500px;
+#host {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .filepicker.dropzone .dz-preview.dz-image-preview {

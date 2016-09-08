@@ -56,9 +56,17 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _reactDropzoneComponent = __webpack_require__(172);
+	var _example_default = __webpack_require__(172);
 
-	var _reactDropzoneComponent2 = _interopRequireDefault(_reactDropzoneComponent);
+	var _example_default2 = _interopRequireDefault(_example_default);
+
+	var _example_no_post_url = __webpack_require__(178);
+
+	var _example_no_post_url2 = _interopRequireDefault(_example_no_post_url);
+
+	var _example_params = __webpack_require__(179);
+
+	var _example_params2 = _interopRequireDefault(_example_params);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -68,65 +76,98 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Example = function (_React$Component) {
-	    _inherits(Example, _React$Component);
+	// Render
 
-	    function Example(props) {
-	        _classCallCheck(this, Example);
+	var Examples = function (_React$Component) {
+	    _inherits(Examples, _React$Component);
 
-	        // For a full list of possible configurations,
-	        // please consult http://www.dropzonejs.com/#configuration
-	        var _this = _possibleConstructorReturn(this, (Example.__proto__ || Object.getPrototypeOf(Example)).call(this, props));
+	    function Examples() {
+	        _classCallCheck(this, Examples);
 
-	        _this.djsConfig = {
-	            addRemoveLinks: true,
-	            acceptedFiles: "image/jpeg,image/png,image/gif"
-	        };
-
-	        _this.componentConfig = {
-	            iconFiletypes: ['.jpg', '.png', '.gif'],
-	            showFiletypeIcon: true,
-	            postUrl: '/uploadHandler'
-	        };
-
-	        // If you want to attach multiple callbacks, simply
-	        // create an array filled with all your callbacks.
-	        _this.callbackArray = [function () {
-	            return console.log('Hi!');
-	        }, function () {
-	            return console.log('Ho!');
-	        }];
-
-	        // Simple callbacks work too, of course
-	        _this.callback = function () {
-	            return console.log('Hello!');
-	        };
-	        return _this;
+	        return _possibleConstructorReturn(this, (Examples.__proto__ || Object.getPrototypeOf(Examples)).apply(this, arguments));
 	    }
 
-	    _createClass(Example, [{
+	    _createClass(Examples, [{
 	        key: 'render',
 	        value: function render() {
-	            var config = this.componentConfig;
-	            var djsConfig = this.djsConfig;
-
-	            // For a list of all possible events (there are many), see README.md!
-	            var eventHandlers = {
-	                drop: this.callbackArray,
-	                addedfile: this.callback
-	            };
-
-	            return _react2.default.createElement(_reactDropzoneComponent2.default, { config: config, eventHandlers: eventHandlers, djsConfig: djsConfig });
+	            console.log(_example_default2.default);
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    _react2.default.createElement(
+	                        'a',
+	                        { href: 'https://github.com/felixrieseberg/React-Filepicker' },
+	                        'React Filepicker Examples'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'example' },
+	                    _react2.default.createElement(
+	                        'h4',
+	                        null,
+	                        'Default Use'
+	                    ),
+	                    _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        'This is the default use, posting to the example server.'
+	                    ),
+	                    _react2.default.createElement(_example_default2.default, null)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'example' },
+	                    _react2.default.createElement(
+	                        'h4',
+	                        null,
+	                        'Use without url'
+	                    ),
+	                    _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        'Neither ',
+	                        _react2.default.createElement(
+	                            'code',
+	                            null,
+	                            'url'
+	                        ),
+	                        ' nor a form ',
+	                        _react2.default.createElement(
+	                            'code',
+	                            null,
+	                            'action'
+	                        ),
+	                        ' parameter are specified, meaning that you can completely customize this component. Check the console for a log of each added file!'
+	                    ),
+	                    _react2.default.createElement(_example_no_post_url2.default, null)
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'example' },
+	                    _react2.default.createElement(
+	                        'h4',
+	                        null,
+	                        'Use with custom parameters'
+	                    ),
+	                    _react2.default.createElement(
+	                        'p',
+	                        null,
+	                        'This example simply showcases how one would use the component with custom POST parameters, for instance for authentication.'
+	                    ),
+	                    _react2.default.createElement(_example_params2.default, null)
+	                )
+	            );
 	        }
 	    }]);
 
-	    return Example;
+	    return Examples;
 	}(_react2.default.Component);
 
-	// Render
-
-
-	_reactDom2.default.render(_react2.default.createElement(Example, null), document.getElementById('content'));
+	_reactDom2.default.render(_react2.default.createElement(Examples, null), document.getElementById('host'));
 
 /***/ },
 /* 1 */
@@ -21505,10 +21546,99 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactDropzoneComponent = __webpack_require__(173);
+
+	var _reactDropzoneComponent2 = _interopRequireDefault(_reactDropzoneComponent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Example = function (_React$Component) {
+	    _inherits(Example, _React$Component);
+
+	    function Example(props) {
+	        _classCallCheck(this, Example);
+
+	        // For a full list of possible configurations,
+	        // please consult http://www.dropzonejs.com/#configuration
+	        var _this = _possibleConstructorReturn(this, (Example.__proto__ || Object.getPrototypeOf(Example)).call(this, props));
+
+	        _this.djsConfig = {
+	            addRemoveLinks: true,
+	            acceptedFiles: "image/jpeg,image/png,image/gif"
+	        };
+
+	        _this.componentConfig = {
+	            iconFiletypes: ['.jpg', '.png', '.gif'],
+	            showFiletypeIcon: true,
+	            postUrl: '/uploadHandler'
+	        };
+
+	        // If you want to attach multiple callbacks, simply
+	        // create an array filled with all your callbacks.
+	        _this.callbackArray = [function () {
+	            return console.log('Hi!');
+	        }, function () {
+	            return console.log('Ho!');
+	        }];
+
+	        // Simple callbacks work too, of course
+	        _this.callback = function () {
+	            return console.log('Hello!');
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Example, [{
+	        key: 'render',
+	        value: function render() {
+	            var config = this.componentConfig;
+	            var djsConfig = this.djsConfig;
+
+	            // For a list of all possible events (there are many), see README.md!
+	            var eventHandlers = {
+	                drop: this.callbackArray,
+	                addedfile: this.callback
+	            };
+
+	            return _react2.default.createElement(_reactDropzoneComponent2.default, { config: config, eventHandlers: eventHandlers, djsConfig: djsConfig });
+	        }
+	    }]);
+
+	    return Example;
+	}(_react2.default.Component);
+
+	exports.default = Example;
+
+/***/ },
+/* 173 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	var React = __webpack_require__(1),
 	    ReactDOM = __webpack_require__(34),
-	    Helpers = __webpack_require__(173),
-	    IconComponent = __webpack_require__(174),
+	    Helpers = __webpack_require__(174),
+	    IconComponent = __webpack_require__(175),
 	    Dropzone, DropzoneComponent;
 
 	DropzoneComponent = React.createClass({displayName: "DropzoneComponent",
@@ -21533,7 +21663,7 @@
 	    getDjsConfig: function () {
 	        var options,
 	            defaults = {
-	                url: this.props.config.postUrl ? this.props.config.postUrl : null
+	                url: this.props.config.postUrl ? this.props.config.postUrl : ''
 	            };
 
 	        if (this.props.djsConfig) {
@@ -21553,7 +21683,7 @@
 	        var self = this,
 	            options = this.getDjsConfig();
 
-	        Dropzone = Dropzone || __webpack_require__(175);
+	        Dropzone = Dropzone || __webpack_require__(176);
 	        Dropzone.autoDiscover = false;
 
 	        if (!this.props.config.postUrl && !this.props.eventHandlers.drop) {
@@ -21734,7 +21864,7 @@
 
 
 /***/ },
-/* 173 */
+/* 174 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21847,7 +21977,7 @@
 
 
 /***/ },
-/* 174 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21866,7 +21996,7 @@
 
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {
@@ -23637,10 +23767,10 @@
 
 	}).call(this);
 
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(176)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(177)(module)))
 
 /***/ },
-/* 176 */
+/* 177 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -23654,6 +23784,180 @@
 		return module;
 	}
 
+
+/***/ },
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactDropzoneComponent = __webpack_require__(173);
+
+	var _reactDropzoneComponent2 = _interopRequireDefault(_reactDropzoneComponent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Example = function (_React$Component) {
+	    _inherits(Example, _React$Component);
+
+	    function Example(props) {
+	        _classCallCheck(this, Example);
+
+	        // For a full list of possible configurations,
+	        // please consult http://www.dropzonejs.com/#configuration
+	        var _this = _possibleConstructorReturn(this, (Example.__proto__ || Object.getPrototypeOf(Example)).call(this, props));
+
+	        _this.djsConfig = {
+	            addRemoveLinks: true,
+	            acceptedFiles: "image/jpeg,image/png,image/gif",
+	            autoProcessQueue: false,
+	            url: 'no-url'
+	        };
+
+	        _this.componentConfig = {
+	            iconFiletypes: ['.jpg', '.png', '.gif'],
+	            showFiletypeIcon: true
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Example, [{
+	        key: 'handleFileAdded',
+	        value: function handleFileAdded(file) {
+	            console.log(file);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var config = this.componentConfig;
+	            var djsConfig = this.djsConfig;
+
+	            // For a list of all possible events (there are many), see README.md!
+	            var eventHandlers = {
+	                addedfile: this.handleFileAdded.bind(this)
+	            };
+
+	            return _react2.default.createElement(_reactDropzoneComponent2.default, { config: config, eventHandlers: eventHandlers, djsConfig: djsConfig });
+	        }
+	    }]);
+
+	    return Example;
+	}(_react2.default.Component);
+
+	exports.default = Example;
+
+/***/ },
+/* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(34);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _reactDropzoneComponent = __webpack_require__(173);
+
+	var _reactDropzoneComponent2 = _interopRequireDefault(_reactDropzoneComponent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Example = function (_React$Component) {
+	    _inherits(Example, _React$Component);
+
+	    function Example(props) {
+	        _classCallCheck(this, Example);
+
+	        // For a full list of possible configurations,
+	        // please consult http://www.dropzonejs.com/#configuration
+	        var _this = _possibleConstructorReturn(this, (Example.__proto__ || Object.getPrototypeOf(Example)).call(this, props));
+
+	        _this.djsConfig = {
+	            acceptedFiles: "image/jpeg,image/png,image/gif",
+	            addRemoveLinks: true,
+	            params: {
+	                myParam: 'Hello from a parameter!',
+	                anotherParam: 43
+	            }
+	        };
+
+	        _this.componentConfig = {
+	            iconFiletypes: ['.jpg', '.png', '.gif'],
+	            showFiletypeIcon: true,
+	            postUrl: '/uploadHandler'
+	        };
+
+	        // If you want to attach multiple callbacks, simply
+	        // create an array filled with all your callbacks.
+	        _this.callbackArray = [function () {
+	            return console.log('Hi!');
+	        }, function () {
+	            return console.log('Ho!');
+	        }];
+
+	        // Simple callbacks work too, of course
+	        _this.callback = function () {
+	            return console.log('Hello!');
+	        };
+	        return _this;
+	    }
+
+	    _createClass(Example, [{
+	        key: 'render',
+	        value: function render() {
+	            var config = this.componentConfig;
+	            var djsConfig = this.djsConfig;
+
+	            // For a list of all possible events (there are many), see README.md!
+	            var eventHandlers = {
+	                drop: this.callbackArray,
+	                addedfile: this.callback
+	            };
+
+	            return _react2.default.createElement(_reactDropzoneComponent2.default, { config: config, eventHandlers: eventHandlers, djsConfig: djsConfig });
+	        }
+	    }]);
+
+	    return Example;
+	}(_react2.default.Component);
+
+	exports.default = Example;
 
 /***/ }
 /******/ ]);

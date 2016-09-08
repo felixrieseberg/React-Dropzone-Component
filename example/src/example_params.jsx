@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import DropzoneComponent from 'react-dropzone-component';
 
-class Example extends React.Component {
+export default class Example extends React.Component {
     constructor(props) {
         super(props);
 
@@ -44,6 +44,3 @@ class Example extends React.Component {
         return <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
     }
 }
-
-// Render
-ReactDOM.render(<Example />, document.getElementById('content'));

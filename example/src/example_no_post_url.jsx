@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import DropzoneComponent from 'react-dropzone-component';
 
-class Example extends React.Component {
+export default class Example extends React.Component {
     constructor(props) {
         super(props);
 
@@ -10,20 +10,19 @@ class Example extends React.Component {
         // please consult http://www.dropzonejs.com/#configuration
         this.djsConfig = {
             addRemoveLinks: true,
-            acceptedFiles: "image/jpeg,image/png,image/gif"
+            acceptedFiles: "image/jpeg,image/png,image/gif",
+            autoProcessQueue: false
         };
 
         this.componentConfig = {
             iconFiletypes: ['.jpg', '.png', '.gif'],
             showFiletypeIcon: true,
+            postUrl: 'no-url'
         };
+    }
 
-        // If you want to attach multiple callbacks, simply
-        // create an array filled with all your callbacks.
-        this.callbackArray = [() => console.log('Hi!'), () => console.log('Ho!')];
-
-        // Simple callbacks work too, of course
-        this.callback = () => console.log('Hello!');
+    handleFileAdded(file) {
+        console.log(file);
     }
 
     render() {
@@ -32,13 +31,9 @@ class Example extends React.Component {
 
         // For a list of all possible events (there are many), see README.md!
         const eventHandlers = {
-            drop: this.callbackArray,
-            addedfile: this.callback,
+            addedfile: this.handleFileAdded.bind(this)
         }
 
-        return <DropzoneComponent action="post.php" config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
+        return <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
     }
 }
-
-// Render
-ReactDOM.render(<Example />, document.getElementById('content'));

@@ -46,7 +46,7 @@ var componentConfig = {
     postUrl: '/uploadHandler'
 };
 
-React.render(
+ReactDOM.render(
     <DropzoneComponent config={componentConfig}
                        eventHandlers={eventHandlers}
                        djsConfig={djsConfig} />,
@@ -76,18 +76,15 @@ function removeFile () {
 ```
 
 ##### Usage Without Automatic Posting
-If you want to use this component without posting automatically to a URL but instead do the posting yourself, then you can just leave the `postUrl` option empty and handle the displaying of progress by yourself using the provided event handlers. In this case, Dropzone.js requires that the Dropzone Component is creates as a `<form>` with the `action` attribute set. To use this feature, use the component like so:
+If you want to use this component without posting automatically to a URL but instead do the posting yourself, then you can just fill the `postUrl` option with a meaningless string and handle the displaying of progress by yourself using the provided event handlers. To see this in action, check out the `examples`!
 
 ```
-var componentConfig = {
-    iconFiletypes: ['.jpg', '.png', '.gif'],
-    showFiletypeIcon: true
-    // Notice how there's no postUrl set here
-};
+var componentConfig = { postUrl: 'no-url' };
+var djsConfig = { autoProcessQueue: false }
+var eventHandlers = { addedfile: (file) => console.log(file) }
 
-React.render(
+ReactDOM.render(
     <DropzoneComponent config={componentConfig}
-                       action="uploads.php"
                        eventHandlers={eventHandlers}
                        djsConfig={djsConfig} />,
     document.getElementById('content')
@@ -131,7 +128,7 @@ var componentConfig = {
     postUrl: '/uploadHandler'
 };
 
-React.render(<DropzoneComponent config={componentConfig} djsConfig={djsConfig} />, document.getElementById('content'));
+ReactDOM.render(<DropzoneComponent config={componentConfig} djsConfig={djsConfig} />, document.getElementById('content'));
 ```
 
 ### Callbacks
