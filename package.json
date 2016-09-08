@@ -35,19 +35,19 @@
     "gulp-util": "^3.0.4",
     "jest-cli": "^0.8.1",
     "jshint-stylish": "^1.0.1",
-    "react": "^0.14.0",
-    "react-addons-test-utils": "^0.14.3",
-    "react-dom": "^0.14.0",
+    "react": "^15.3.1",
+    "react-addons-test-utils": "^15.3.1",
+    "react-dom": "^15.3.1",
     "react-tools": "^0.13.3",
     "reactify": "^1.1.1",
     "tape": "^3.5.0",
     "webpack-stream": "^3.1.0"
   },
   "dependencies": {
-    "dropzone": "^4.2.0"
+    "dropzone": "^4.3.0"
   },
   "scripts": {
-    "dist": "gulp bundle-js",
+    "build": "gulp bundle-js",
     "watch": "gulp watch",
     "test": "jest"
   },

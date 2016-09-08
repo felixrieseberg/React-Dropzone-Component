@@ -9,12 +9,8 @@ class Example extends React.Component {
         // For a full list of possible configurations,
         // please consult http://www.dropzonejs.com/#configuration
         this.djsConfig = {
-            acceptedFiles: "image/jpeg,image/png,image/gif",
             addRemoveLinks: true,
-            params: {
-                myParam: 'Hello from a parameter!',
-                anotherParam: 43
-            }
+            acceptedFiles: "image/jpeg,image/png,image/gif"
         };
 
         this.componentConfig = {
