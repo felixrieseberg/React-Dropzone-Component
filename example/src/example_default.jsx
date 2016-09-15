@@ -24,15 +24,11 @@ export default class Example extends React.Component {
         this.callbackArray = [() => console.log('Hi!'), () => console.log('Ho!')];
 
         // Simple callbacks work too, of course
-        this.callback = () => {console.log('Hello!')};
+        this.callback = () => console.log('Hello!');
 
-        this.success = file => {
-            console.log('uploaded', file);
-        };
+        this.success = file =>console.log('uploaded', file);
 
-        this.removedfile = file => {
-            console.log('removing...', file);
-        };
+        this.removedfile = file => console.log('removing...', file);
 
         this.dropzone = null;
     }
