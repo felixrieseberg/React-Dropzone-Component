@@ -26,7 +26,7 @@ export default class Example extends React.Component {
         // Simple callbacks work too, of course
         this.callback = () => console.log('Hello!');
 
-        this.success = file =>console.log('uploaded', file);
+        this.success = file => console.log('uploaded', file);
 
         this.removedfile = file => console.log('removing...', file);
 
@@ -41,6 +41,7 @@ export default class Example extends React.Component {
         const eventHandlers = {
             init: dz => this.dropzone = dz,
             drop: this.callbackArray,
+            addedfile: this.callback,
             success: this.success,
             removedfile: this.removedfile
         }
