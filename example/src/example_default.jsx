@@ -25,6 +25,12 @@ export default class Example extends React.Component {
 
         // Simple callbacks work too, of course
         this.callback = () => console.log('Hello!');
+
+        this.success = file => console.log('uploaded', file);
+
+        this.removedfile = file => console.log('removing...', file);
+
+        this.dropzone = null;
     }
 
     render() {
@@ -33,8 +39,11 @@ export default class Example extends React.Component {
 
         // For a list of all possible events (there are many), see README.md!
         const eventHandlers = {
+            init: dz => this.dropzone = dz,
             drop: this.callbackArray,
             addedfile: this.callback,
+            success: this.success,
+            removedfile: this.removedfile
         }
 
         return <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
