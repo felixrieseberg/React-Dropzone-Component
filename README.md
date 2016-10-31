@@ -27,7 +27,7 @@ If you are using one of the many module solutions, you can simply install and re
 >
 > If you are using a fancy boilerplate, you might want to require the lib directly, by using `import DropzoneComponent from 'react-dropzone-component/lib/react-dropzone'` or `require('react-dropzone-component/lib/react-dropzone')`.
 
-Please ensure that you also include two required CSS files: `styles/filepicker.css` and `node_modules/dropzone/dist/min/dropzone.min.css`. There are currently a bunch of good ways to combine and process CSS in React, so I'll leave it to you to choose whatever method is best for you - the component does not automatically load CSS.
+Please ensure that you also include two required CSS files: `node_modules/react-dropzone-component/styles/filepicker.css` and `node_modules/dropzone/dist/min/dropzone.min.css`. There are currently a bunch of good ways to combine and process CSS in React, so I'll leave it to you to choose whatever method is best for you - the component does not automatically load CSS.
 
 > To use this component without React-DOM, use version `^0.6` - from `0.7` on, we need it.
 
