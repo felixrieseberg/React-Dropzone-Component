@@ -76,7 +76,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    /**
 	     * Configuration of Dropzone.js. Defaults are
-	     * overriden overriden by the 'djsConfig' property
+	     * overriden by the 'djsConfig' property
 	     * For a full list of possible configurations,
 	     * please consult
 	     * http://www.dropzonejs.com/#configuration
@@ -135,12 +135,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 
 	                    if (this.dropzone.getActiveFiles().length === 0) {
-	                        this.dropzone = this.dropzone.destroy();
+	                        this.dropzone = this.destroy(this.dropzone);
 	                        return window.clearInterval(destroyInterval);
 	                    }
 	                }.bind(this), 500);
 	            } else {
-	                this.dropzone = this.dropzone.destroy();
+	                this.dropzone = this.destroy(this.dropzone);
 	            }
 	        }
 	    },
@@ -278,7 +278,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 	        }.bind(this));
+	    },
+
+	    /**
+	     * Removes ALL listeners and Destroys dropzone. see https://github.com/enyo/dropzone/issues/1175
+	     */
+	    destroy: function(dropzone) {
+	        dropzone.off();
+	        return dropzone.destroy();
 	    }
+
 	});
 
 	module.exports = DropzoneComponent;
