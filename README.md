@@ -131,6 +131,24 @@ var componentConfig = {
 ReactDOM.render(<DropzoneComponent config={componentConfig} djsConfig={djsConfig} />, document.getElementById('content'));
 ```
 
+### Custom Dropzone Area
+
+In case you need to customize the dropzone area, you may pass a jQuery compatible selector in the config object.
+
+```js
+var componentConfig = {
+    postUrl: '/uploadHandler',
+    dropzoneSelector: 'body',
+};
+
+ReactDOM.render(
+  <DropzoneComponent config={componentConfig} />,
+  document.getElementById('content'),
+);
+```
+
+The code above will use the entire page `body` as the dropzone area.
+
 ### Callbacks
 Callbacks can be provided in an object literal.
 
