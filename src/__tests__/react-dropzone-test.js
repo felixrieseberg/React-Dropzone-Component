@@ -79,4 +79,15 @@ describe('Dropzone Comoponent', () => {
 
         expect(eventHandler).toBeCalled();
     });
+
+    it('Allows custom dropzone areas', () => {
+        let dropzone = TestUtils.renderIntoDocument(
+            <DropzoneComponent config={{
+                ...componentConfig,
+                dropzoneSelector: 'body'
+            }} />
+        );
+
+        expect(document.body.dropzone).toBeDefined()
+    });
 });
