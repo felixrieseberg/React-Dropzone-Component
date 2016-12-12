@@ -55,7 +55,8 @@ DropzoneComponent = React.createClass({
             console.info('Neither postUrl nor a "drop" eventHandler specified, the React-Dropzone component might misbehave.');
         }
 
-        this.dropzone = new Dropzone(ReactDOM.findDOMNode(self), options);
+        var dropzoneNode = this.props.config.wholePage ? 'body' : ReactDOM.findDOMNode(self);
+        this.dropzone = new Dropzone(dropzoneNode, options);
         this.setupEvents();
     },
 
@@ -97,7 +98,8 @@ DropzoneComponent = React.createClass({
         this.queueDestroy = false;
 
         if (!this.dropzone) {
-            this.dropzone = new Dropzone(ReactDOM.findDOMNode(this), this.getDjsConfig());
+            var dropzoneNode = this.props.config.wholePage ? 'body' : ReactDOM.findDOMNode(self);
+            this.dropzone = new Dropzone(dropzoneNode, this.getDjsConfig());
         }
     },
 
