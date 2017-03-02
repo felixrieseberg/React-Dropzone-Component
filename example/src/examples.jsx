@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom';
 import DefaultExample from './example_default.jsx';
 import NoPostExample from './example_no_post_url.jsx';
 import ParamsExample from './example_params.jsx';
+import AutoQueueProcessFalseExample from './example_autoprocessqueue_false.jsx';
 
 // Render
 
@@ -30,6 +31,11 @@ class Examples extends React.Component {
                     <h4>Use with custom parameters</h4>
                     <p>This example simply showcases how one would use the component with custom POST parameters, for instance for authentication.</p>
                     <ParamsExample />
+                </div>
+                <div className="example">
+                    <h4>Use with delayed upload</h4>
+                    <p>This example disables the automatic file uploading so that you can manage when it happens. For instance, with an explicit button.</p>
+                    <AutoQueueProcessFalseExample />
                 </div>
             </div>
         );

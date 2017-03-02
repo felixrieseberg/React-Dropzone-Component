@@ -17,12 +17,18 @@ export default class Example extends React.Component {
         this.componentConfig = {
             iconFiletypes: ['.jpg', '.png', '.gif'],
             showFiletypeIcon: true,
-            postUrl: 'no-url'
+            postUrl: '/uploadHandler'
         };
+
+        this.dropzone = null;
     }
 
     handleFileAdded(file) {
         console.log(file);
+    }
+
+    handlePost() {
+        this.dropzone.processQueue();
     }
 
     render() {
@@ -31,9 +37,15 @@ export default class Example extends React.Component {
 
         // For a list of all possible events (there are many), see README.md!
         const eventHandlers = {
+            init: dz => this.dropzone = dz,
             addedfile: this.handleFileAdded.bind(this)
         }
 
-        return <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
+        return (
+            <div>
+                <DropzoneComponent config={config} eventHandlers={eventHandlers} djsConfig={djsConfig} />
+                <button onClick={this.handlePost.bind(this)}>Upload</button>
+            </div>
+        );
     }
 }
