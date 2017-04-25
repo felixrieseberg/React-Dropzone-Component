@@ -39,8 +39,7 @@
   },
   "scripts": {
     "build": "webpack && uglifyjs ./dist/react-dropzone.js -c -m -o ./dist/react-dropzone.min.js --source-map ./dist/react-dropzone.min.js.map",
-    "watch": "gulp watch",
-    "test": "jest",
+    "test": "standard ./src && jest",
     "prepublish": "npm run build"
   },
   "jest": {
