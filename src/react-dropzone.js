@@ -1,12 +1,13 @@
 'use strict';
 
 var React = require('react'),
+    createReactClass = require('create-react-class'),
     ReactDOM = require('react-dom'),
     Helpers = require('./helpers'),
     IconComponent = require('./icon'),
     Dropzone, DropzoneComponent;
 
-DropzoneComponent = React.createClass({
+DropzoneComponent = createReactClass({
     /**
      * Ensure we always have props to work with.
      */
@@ -110,13 +111,13 @@ DropzoneComponent = React.createClass({
     componentWillUpdate: function() {
         var djsConfigObj, postUrlConfigObj;
 
-        djsConfigObj = this.props.djsConfig ? this.props.djsConfig : {};        
+        djsConfigObj = this.props.djsConfig ? this.props.djsConfig : {};
         try {
-            postUrlConfigObj = this.props.config.postUrl ? {url: this.props.config.postUrl} : {};            
-        } catch (err) {   
+            postUrlConfigObj = this.props.config.postUrl ? {url: this.props.config.postUrl} : {};
+        } catch (err) {
             postUrlConfigObj = {};
         }
-        
+
         this.dropzone.options = Helpers.extend(true, {}, this.dropzone.options, djsConfigObj, postUrlConfigObj);
     },
 
