@@ -1,7 +1,7 @@
 {
   "name": "react-dropzone-component",
   "description": "A Dropzone Component for ReactJS",
-  "version": "1.4.1",
+  "version": "2.0.0-beta2",
   "license": "MIT",
   "repository": "https://github.com/felixrieseberg/React-Dropzone",
   "maintainers": [
@@ -49,6 +49,6 @@
       "<rootDir>/node_modules/*"
     ]
   },
-  "main": "lib/react-dropzone.js",
+  "main": "dist/react-dropzone.js",
   "standalone": "React-Dropzone"
 }

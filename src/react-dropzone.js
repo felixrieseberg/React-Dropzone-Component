@@ -213,4 +213,4 @@ DropzoneComponent.defaultProps = {
   eventHandlers: {}
 }
 
-module.exports = DropzoneComponent
+export default DropzoneComponent

@@ -1,24 +1,33 @@
-const path = require('path')
-
 module.exports = {
   entry: './src/react-dropzone.js',
   output: {
-    filename: 'react-dropzone.js',
-    path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'umd',
-    library: 'DropzoneComponent'
+    filename: './dist/react-dropzone.js',
+    sourceMapFilename: './dist/react-dropzone.js.map',
+    devtoolModuleFilenameTemplate: '../[resource-path]',
+    library: 'ReactDropzone',
+    libraryTarget: 'umd'
   },
   externals: {
-    // Use external version of React
-    react: 'React',
-    'react-dom': 'ReactDOM'
+    'react': {
+      'commonjs': 'react',
+      'commonjs2': 'react',
+      'amd': 'react',
+      // React dep should be available as window.React, not window.react
+      'root': 'React'
+    },
+    'react-dom': {
+      'commonjs': 'react-dom',
+      'commonjs2': 'react-dom',
+      'amd': 'react-dom',
+      'root': 'ReactDOM'
+    }
   },
   module: {
     loaders: [
       {
-        test: /.js?$/,
+        test: /\.(?:js|es).?$/,
         loader: 'babel-loader',
-        exclude: /node_modules/,
+        exclude: /(node_modules)/,
         query: {
           presets: ['es2015', 'react']
         }
