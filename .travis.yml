@@ -1,8 +1,7 @@
 language: node_js
 node_js:
-  - "4.1"
-  - "4.0"
-  
+  - "7.0"
+
 before_install:
   - npm install -g react-dom
   - npm install -g react
