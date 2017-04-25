@@ -1,10 +1,7 @@
-const React = require('react')
-const createReactClass = require('create-react-class')
+import React from 'react'
 
-const Icon = createReactClass({
-  render: function () {
+export class Icon extends React.Component {
+  render () {
     return <div data-filetype={this.props.filetype} className='filepicker-file-icon' />
   }
-})
-
-module.exports = Icon
+}

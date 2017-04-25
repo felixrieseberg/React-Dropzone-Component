@@ -1,23 +1,16 @@
-const React = require('react')
-const createReactClass = require('create-react-class')
-const ReactDOM = require('react-dom')
-const extend = require('extend')
-const IconComponent = require('./icon')
+import React from 'react'
+import ReactDOM from 'react-dom'
+import extend from 'extend'
+import IconComponent from './icon'
 
 let Dropzone = null
-let DropzoneComponent = null
 
-DropzoneComponent = createReactClass({
-  /**
-   * Ensure we always have props to work with.
-   */
-  getDefaultProps: function () {
-    return {
-      djsConfig: {},
-      config: {},
-      eventHandlers: {}
-    }
-  },
+export class DropzoneComponent extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = { files: [] }
+  }
 
   /**
    * Configuration of Dropzone.js. Defaults are
@@ -26,7 +19,7 @@ DropzoneComponent = createReactClass({
    * please consult
    * http://www.dropzonejs.com/#configuration
    */
-  getDjsConfig: function () {
+  getDjsConfig () {
     let options = null
     const defaults = {
       url: this.props.config.postUrl ? this.props.config.postUrl : null
@@ -39,13 +32,13 @@ DropzoneComponent = createReactClass({
     }
 
     return options
-  },
+  }
 
   /**
    * React 'componentDidMount' method
    * Sets up dropzone.js with the component.
    */
-  componentDidMount: function () {
+  componentDidMount () {
     const options = this.getDjsConfig()
 
     Dropzone = Dropzone || require('dropzone')
@@ -58,13 +51,13 @@ DropzoneComponent = createReactClass({
     var dropzoneNode = this.props.config.dropzoneSelector || ReactDOM.findDOMNode(this)
     this.dropzone = new Dropzone(dropzoneNode, options)
     this.setupEvents()
-  },
+  }
 
   /**
    * React 'componentWillUnmount'
    * Removes dropzone.js (and all its globals) if the component is being unmounted
    */
-  componentWillUnmount: function () {
+  componentWillUnmount () {
     if (this.dropzone) {
       const files = this.dropzone.getActiveFiles()
 
@@ -88,26 +81,26 @@ DropzoneComponent = createReactClass({
         this.dropzone = this.destroy(this.dropzone)
       }
     }
-  },
+  }
 
   /**
    * React 'componentDidUpdate'
    * If the Dropzone hasn't been created, create it
    */
-  componentDidUpdate: function () {
+  componentDidUpdate () {
     this.queueDestroy = false
 
     if (!this.dropzone) {
       const dropzoneNode = this.props.config.dropzoneSelector || ReactDOM.findDOMNode(this)
       this.dropzone = new Dropzone(dropzoneNode, this.getDjsConfig())
     }
-  },
+  }
 
   /**
    * React 'componentWillUpdate'
    * Update Dropzone options each time the component updates.
    */
-  componentWillUpdate: function () {
+  componentWillUpdate () {
     let djsConfigObj
     let postUrlConfigObj
 
@@ -120,12 +113,12 @@ DropzoneComponent = createReactClass({
     }
 
     this.dropzone.options = extend(true, {}, this.dropzone.options, djsConfigObj, postUrlConfigObj)
-  },
+  }
 
   /**
    * React 'render'
    */
-  render: function () {
+  render () {
     const icons = []
     const { files } = this.state
     const { config } = this.props
@@ -149,23 +142,13 @@ DropzoneComponent = createReactClass({
         <div className={className}> {icons} {this.props.children} </div>
       )
     }
-  },
-
-  /**
-   * React 'getInitialState' method, setting the initial state
-   * @return {object}
-   */
-  getInitialState: function () {
-    return {
-      files: []
-    }
-  },
+  }
 
   /**
    * Takes event handlers in this.props.eventHandlers
    * and binds them to dropzone.js events
    */
-  setupEvents: function () {
+  setupEvents () {
     const eventHandlers = this.props.eventHandlers
 
     if (!this.dropzone || !eventHandlers) return
@@ -213,16 +196,21 @@ DropzoneComponent = createReactClass({
 
       this.setState({ files })
     })
-  },
+  }
 
   /**
    * Removes ALL listeners and Destroys dropzone. see https://github.com/enyo/dropzone/issues/1175
    */
-  destroy: function (dropzone) {
+  destroy (dropzone) {
     dropzone.off()
     return dropzone.destroy()
   }
+}
 
-})
+DropzoneComponent.defaultProps = {
+  djsConfig: {},
+  config: {},
+  eventHandlers: {}
+}
 
 module.exports = DropzoneComponent
