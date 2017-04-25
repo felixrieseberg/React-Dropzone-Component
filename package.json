@@ -39,12 +39,14 @@
     "react-dom": "^15.3.1",
     "react-tools": "^0.13.3",
     "reactify": "^1.1.1",
+    "standard": "^10.0.2",
     "tape": "^3.5.0",
     "webpack-stream": "^3.1.0"
   },
   "dependencies": {
     "create-react-class": "^15.5.2",
-    "dropzone": "^4.3.0"
+    "dropzone": "^4.3.0",
+    "extend": "^3.0.0"
   },
   "scripts": {
     "build": "gulp bundle-js",
