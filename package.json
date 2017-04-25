@@ -36,7 +36,6 @@
     "jest-cli": "^0.8.1",
     "jshint-stylish": "^1.0.1",
     "react": "^15.3.1",
-    "react-addons-test-utils": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-tools": "^0.13.3",
     "reactify": "^1.1.1",
@@ -44,6 +43,7 @@
     "webpack-stream": "^3.1.0"
   },
   "dependencies": {
+    "create-react-class": "^15.5.2",
     "dropzone": "^4.3.0"
   },
   "scripts": {
