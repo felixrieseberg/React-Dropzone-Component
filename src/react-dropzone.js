@@ -188,7 +188,7 @@ export class DropzoneComponent extends React.Component {
       if (!file) return
 
       const files = this.state.files || []
-      files.forEach((fileInFiles) => {
+      files.forEach((fileInFiles, i) => {
         if (fileInFiles.name === file.name && fileInFiles.size === file.size) {
           files.splice(i, 1)
         }
