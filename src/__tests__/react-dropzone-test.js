@@ -1,11 +1,10 @@
 /* global jest, describe, it, expect */
 
 jest.dontMock('../react-dropzone')
-jest.dontMock('../helpers')
 
 const React = require('react')
 const ReactDOM = require('react-dom')
-const TestUtils = require('react-dom/test-utils')
+const renderer = require('react-test-renderer')
 
 const DropzoneComponent = require('../react-dropzone')
 
@@ -23,7 +22,7 @@ describe('Dropzone Comoponent', () => {
   }
 
   it('Renders a Dropzone with DropzoneJS attached', () => {
-    let dropzone = TestUtils.renderIntoDocument(
+    let dropzone = renderer.create(
       <DropzoneComponent config={componentConfig} />
     )
 
@@ -34,7 +33,7 @@ describe('Dropzone Comoponent', () => {
   })
 
   it('Provides DropzoneJS with the correct postUrl', () => {
-    let dropzone = TestUtils.renderIntoDocument(
+    let dropzone = renderer.create(
       <DropzoneComponent config={componentConfig} />
     )
 
@@ -44,7 +43,7 @@ describe('Dropzone Comoponent', () => {
   })
 
   it('Renders Icons if configured to do so', () => {
-    let dropzone = TestUtils.renderIntoDocument(
+    let dropzone = renderer.create(
       <DropzoneComponent config={componentConfig} />
     )
 
@@ -55,7 +54,7 @@ describe('Dropzone Comoponent', () => {
   })
 
   it('Provides DropzoneJS with a configuration object', () => {
-    let dropzone = TestUtils.renderIntoDocument(
+    let dropzone = renderer.create(
       <DropzoneComponent config={componentConfig} djsConfig={djsConfig} />
     )
 
@@ -73,7 +72,7 @@ describe('Dropzone Comoponent', () => {
       init: eventHandler
     }
 
-    TestUtils.renderIntoDocument(
+    renderer.create(
       <DropzoneComponent config={componentConfig} eventHandlers={eventHandlers} />
     )
 
@@ -81,7 +80,7 @@ describe('Dropzone Comoponent', () => {
   })
 
   it('Allows custom dropzone areas', () => {
-    TestUtils.renderIntoDocument(
+    renderer.create(
       <DropzoneComponent config={{ ...componentConfig, dropzoneSelector: 'body' }} />
     )
 

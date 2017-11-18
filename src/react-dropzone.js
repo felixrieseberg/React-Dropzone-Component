@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import extend from 'extend'
-import IconComponent from './icon'
+import { Icon } from './icon'
 
 let Dropzone = null
 
@@ -126,7 +126,7 @@ export class DropzoneComponent extends React.Component {
 
     if (config.showFiletypeIcon && config.iconFiletypes && (!files || files.length < 1)) {
       for (var i = 0; i < this.props.config.iconFiletypes.length; i = i + 1) {
-        icons.push(<IconComponent filetype={config.iconFiletypes[i]} key={'icon-component' + i} />)
+        icons.push(<Icon filetype={config.iconFiletypes[i]} key={'icon-component' + i} />)
       }
     }
 
