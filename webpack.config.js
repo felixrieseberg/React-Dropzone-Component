@@ -1,8 +1,11 @@
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 module.exports = {
   entry: './src/react-dropzone.js',
   output: {
-    filename: './dist/react-dropzone.js',
-    sourceMapFilename: './dist/react-dropzone.js.map',
+    filename: 'react-dropzone.js',
+    path: __dirname + '/dist',
+    sourceMapFilename: '[file].map',
     devtoolModuleFilenameTemplate: '../[resource-path]',
     library: 'ReactDropzone',
     libraryTarget: 'umd'
@@ -22,10 +25,16 @@ module.exports = {
       'root': 'ReactDOM'
     }
   },
+  devtool: 'source-map',
+  plugins: [
+    new UglifyJSPlugin({
+      sourceMap: true
+    })
+  ],
   module: {
     loaders: [
       {
-        test: /\.(?:js|es).?$/,
+        test: /\.(?:js|es|jsx).?$/,
         loader: 'babel-loader',
         exclude: /(node_modules)/,
         query: {

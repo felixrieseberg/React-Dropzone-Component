@@ -5,4 +5,3 @@ node_js:
 before_install:
   - npm install -g react-dom
   - npm install -g react
-  - npm install -g react-tools
