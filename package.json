@@ -1,7 +1,7 @@
 {
   "name": "react-dropzone-component",
   "description": "A Dropzone Component for ReactJS",
-  "version": "3.0.0-alpha.1",
+  "version": "3.0.0",
   "license": "MIT",
   "repository": "https://github.com/felixrieseberg/React-Dropzone",
   "maintainers": [
@@ -42,7 +42,7 @@
   "scripts": {
     "build": "webpack -p",
     "test": "standard ./src && jest",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "jest": {
     "transform": {
@@ -54,7 +54,9 @@
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/*"
     ],
-    "modulePathIgnorePatterns": ["<rootDir>/src/__tests__/setup.js"]
+    "modulePathIgnorePatterns": [
+      "<rootDir>/src/__tests__/setup.js"
+    ]
   },
   "main": "dist/react-dropzone.js",
   "standalone": "React-Dropzone"
