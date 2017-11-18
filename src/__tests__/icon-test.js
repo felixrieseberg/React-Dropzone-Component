@@ -4,17 +4,16 @@ jest.dontMock('../icon')
 
 const React = require('react')
 const ReactDOM = require('react-dom')
-const TestUtils = require('react-dom/test-utils')
+const { shallow, mount, render } = require('enzyme')
 
-const Icon = require('../icon')
+const { Icon } = require('../icon')
 
 describe('Icon Comoponent', () => {
   it('Renders an Icon', () => {
     // Render a checkbox with label in the document
-    const icon = TestUtils.renderIntoDocument(<Icon filetype='PNG' />)
-    const iconNode = ReactDOM.findDOMNode(icon)
+    const wrapper = render(<Icon filetype='PNG' />)
 
     // Verify that it's Off by default
-    expect(iconNode._attributes['data-filetype']).toBeTruthy()
+    expect(wrapper[0].attribs['data-filetype']).toBeTruthy()
   })
 })

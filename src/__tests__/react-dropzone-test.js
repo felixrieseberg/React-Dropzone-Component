@@ -4,9 +4,9 @@ jest.dontMock('../react-dropzone')
 
 const React = require('react')
 const ReactDOM = require('react-dom')
-const renderer = require('react-test-renderer')
+const { shallow, mount, render } = require('enzyme')
 
-const DropzoneComponent = require('../react-dropzone')
+const {DropzoneComponent} = require('../react-dropzone')
 
 describe('Dropzone Comoponent', () => {
   const componentConfig = {
@@ -22,43 +22,40 @@ describe('Dropzone Comoponent', () => {
   }
 
   it('Renders a Dropzone with DropzoneJS attached', () => {
-    let dropzone = renderer.create(
+    const wrapper = mount(
       <DropzoneComponent config={componentConfig} />
     )
 
-    let dropzoneNode = ReactDOM.findDOMNode(dropzone)
-
     // Verify that the Dropzone is attached
-    expect(dropzoneNode.dropzone).toBeTruthy()
+    expect(wrapper.find('DropzoneComponent').instance()).toHaveProperty('dropzone')
   })
 
   it('Provides DropzoneJS with the correct postUrl', () => {
-    let dropzone = renderer.create(
+    const wrapper = mount(
       <DropzoneComponent config={componentConfig} />
     )
 
-    let dropzoneNode = ReactDOM.findDOMNode(dropzone)
+    const dropzone = wrapper.find('DropzoneComponent').instance().dropzone
 
-    expect(dropzoneNode.dropzone.options.url).toEqual('http://fakeuploader.com/uploadHandler')
+    expect(dropzone.options.url).toEqual('http://fakeuploader.com/uploadHandler')
   })
 
   it('Renders Icons if configured to do so', () => {
-    let dropzone = renderer.create(
+    const wrapper = mount(
       <DropzoneComponent config={componentConfig} />
     )
 
-    let dropzoneNode = ReactDOM.findDOMNode(dropzone)
+    const icons = wrapper.find('.filepicker-file-icon')
 
-    // Verify that we're dealing with the right number of children, indicating icons
-    expect(dropzoneNode.childNodes.length).toEqual(4)
+    expect(icons.length).toEqual(3)
   })
 
   it('Provides DropzoneJS with a configuration object', () => {
-    let dropzone = renderer.create(
+    const wrapper = mount(
       <DropzoneComponent config={componentConfig} djsConfig={djsConfig} />
     )
 
-    let dropzoneNode = ReactDOM.findDOMNode(dropzone)
+    const dropzoneNode = wrapper.find('DropzoneComponent').instance()
 
     expect(dropzoneNode.dropzone.options.maxFiles).toEqual(10)
     expect(dropzoneNode.dropzone.options.maxFilesize).toEqual(2)
@@ -66,13 +63,13 @@ describe('Dropzone Comoponent', () => {
   })
 
   it('Calls callbacks', () => {
-    let eventHandler = jest.genMockFunction()
+    const eventHandler = jest.genMockFunction()
 
-    let eventHandlers = {
+    const eventHandlers = {
       init: eventHandler
     }
 
-    renderer.create(
+    mount(
       <DropzoneComponent config={componentConfig} eventHandlers={eventHandlers} />
     )
 
@@ -80,7 +77,7 @@ describe('Dropzone Comoponent', () => {
   })
 
   it('Allows custom dropzone areas', () => {
-    renderer.create(
+    mount(
       <DropzoneComponent config={{ ...componentConfig, dropzoneSelector: 'body' }} />
     )
 
