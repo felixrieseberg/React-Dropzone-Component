@@ -34,8 +34,8 @@
     "webpack": "^2.4.1"
   },
   "dependencies": {
-    "dropzone": "^4.3.0",
-    "extend": "^3.0.0"
+    "dropzone": "^5.2.0",
+    "extend": "^3.0.1"
   },
   "scripts": {
     "build": "webpack && uglifyjs ./dist/react-dropzone.js -c -m -o ./dist/react-dropzone.min.js --source-map ./dist/react-dropzone.min.js.map",
