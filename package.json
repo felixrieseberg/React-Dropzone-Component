@@ -32,12 +32,12 @@
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "standard": "^10.0.2",
-    "webpack": "^3.8.1"
+    "webpack": "^3.8.1",
+    "uglifyjs-webpack-plugin": "^1.0.1"
   },
   "dependencies": {
     "dropzone": "^5.2.0",
-    "extend": "^3.0.1",
-    "uglifyjs-webpack-plugin": "^1.0.1"
+    "extend": "^3.0.1"
   },
   "scripts": {
     "build": "webpack -p",
