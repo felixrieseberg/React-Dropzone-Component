@@ -18,7 +18,8 @@
   ],
   "peerDependencies": {
     "react-dom": ">15.0.1",
-    "react": ">15.0.1"
+    "react": ">15.0.1",
+	"@types/dropzone": ">5.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -59,5 +60,6 @@
     ]
   },
   "main": "dist/react-dropzone.js",
-  "standalone": "React-Dropzone"
+  "standalone": "React-Dropzone",
+  "types": "typescript/types.d.ts"
 }
