@@ -14,6 +14,8 @@ type UploadProgressCallback = (file: Dropzone.DropzoneFile, progress: number, by
 type TotalUploadProgressCallback = (totalProgress: number, totalBytes: number, totalBytesSent: number) => any;
 type SendingCallback = (file: Dropzone.DropzoneFile, xhr: XMLHttpRequest, formData: FormData) => any;
 type SendingMultipleCallback = (files: Dropzone.DropzoneFile[], xhr: XMLHttpRequest, formData: FormData) => any;
+type SuccessCallback = (file: Dropzone.DropzoneFile, response: Object | string) => any;
+type SuccessMultipleCallback = (files: Dropzone.DropzoneFile[], responseText: string) => any;
 
 /* handlers based on ts definitions for Dropzone.js (@types/dropzone) */
 export declare interface DropzoneComponentHandlers {
@@ -47,8 +49,8 @@ export declare interface DropzoneComponentHandlers {
     sending?: SendingCallback | SendingCallback[];
     sendingmultiple?: SendingMultipleCallback | SendingMultipleCallback[];
 
-    success?: FileCallback | FileCallback[];
-    successmultiple?: FileArrayCallback | FileArrayCallback[];
+    success?: SuccessCallback | SuccessCallback[];
+    successmultiple?: SuccessMultipleCallback | SuccessMultipleCallback[];
 
     canceled?: FileCallback | FileCallback[];
     canceledmultiple?: FileArrayCallback | FileArrayCallback[];
