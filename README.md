@@ -61,7 +61,7 @@ There are a bunch of operations that might require accessing the dropzone object
 
 To get said object, use the `init` event, whose callback will receive a reference to the dropzone object as a parameter.
 
-```JS
+```js
 var myDropzone;
 
 function initCallback (dropzone) {
@@ -78,7 +78,7 @@ function removeFile () {
 ##### Usage Without Automatic Posting
 If you want to use this component without posting automatically to a URL but instead do the posting yourself, then you can just fill the `postUrl` option with a meaningless string and handle the displaying of progress by yourself using the provided event handlers. To see this in action, check out the `examples`!
 
-```
+```js
 var componentConfig = { postUrl: 'no-url' };
 var djsConfig = { autoProcessQueue: false }
 var eventHandlers = { addedfile: (file) => console.log(file) }
@@ -116,7 +116,7 @@ var djsConfig = {
 ##### Custom Post Parameters
 To add custom parameters to your request, add a `params` property to your Dropzone.js configuration object.
 
-```
+```js
 var djsConfig = {
     addRemoveLinks: true,
     params: {
