@@ -3,5 +3,5 @@ node_js:
   - "8"
 
 before_install:
-  - npm install -g react-dom
-  - npm install -g react
+  - npm install --save react
+  - npm install --save react-dom
