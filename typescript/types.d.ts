@@ -79,5 +79,5 @@ interface DropzoneComponentProps {
     action?: string;
 }
 
-export declare class DropzoneComponent extends React.Component<DropzoneComponentProps, {}> {
+export declare class DropzoneComponent<T extends DropzoneComponentProps> extends React.Component<T, {}> {
 }
