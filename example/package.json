@@ -21,7 +21,7 @@
     "react-dropzone-component": "^3.0.0"
   },
   "devDependencies": {
-    "babel-core": "^6.14.0",
+    "babel-core": "^6.26.3",
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-latest": "^6.22.0",
