@@ -48,7 +48,7 @@
   "jest": {
     "testEnvironment": "node",
     "roots": [
-      "test/javascript"
+      "src"
     ],
     "transform": {
       "^.+\\.js?$": "babel-jest"
