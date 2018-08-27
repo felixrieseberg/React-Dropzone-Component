@@ -46,6 +46,10 @@
     "prepare": "npm run build"
   },
   "jest": {
+    "testEnvironment": "node",
+    "roots": [
+      "test/javascript"
+    ],
     "transform": {
       "^.+\\.js?$": "babel-jest"
     },
