@@ -23,7 +23,7 @@ The component is initialized with a configuration object. Optional are a list of
 
 If you are using one of the many module solutions, you can simply install and require this component like shown below. The package's main entry point is `lib/dropzone.js`, which gives you all the dropzone components. If you're rolling with ES6/ES2015, feel free to use `src/dropzone.js`. If you don't want any trouble at all, just add `dist/dropzone.min.js` as a script to your app and use `<DropzoneComponent />`.
 
-> :warning: Ensure that React and ReactDOM are global variables, so that they can be reached on `window.React` or `globa.React`. Many fancy boilerplates are overly fancy and somehow remove those variables.
+> :warning: Ensure that React and ReactDOM are global variables, so that they can be reached on `window.React` or `global.React`. Many fancy boilerplates are overly fancy and somehow remove those variables.
 >
 > If you are using a fancy boilerplate, you might want to require the lib directly, by using `import DropzoneComponent from 'react-dropzone-component/lib/react-dropzone'` or `require('react-dropzone-component/lib/react-dropzone')`.
 
