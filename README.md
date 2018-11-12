@@ -1,6 +1,8 @@
 ## Dropzone.js Component for React
 [![Build Status](https://travis-ci.org/felixrieseberg/React-Dropzone-Component.svg?branch=master)](https://travis-ci.org/felixrieseberg/React-Dropzone-Component) [![Dependency Status](https://david-dm.org/felixrieseberg/react-dropzone-component.svg)](https://david-dm.org/felixrieseberg/react-dropzone-component) [![npm version](https://badge.fury.io/js/react-dropzone-component.svg)](https://badge.fury.io/js/react-dropzone-component) ![Downloads](https://img.shields.io/npm/dm/react-dropzone-component.svg)
 
+> :warning: Maintainers wanted! I haven't been able to keep this component up to date and would gladly hand the keys over to someone who is.
+
 A Dropzone component for ReactJS, allowing users to "drag and drop" files into an upload area. The component uses the battle-tested [Dropzone.js](http://www.dropzonejs.com/) to provide a cross-browser-compatible upload component.
 
 You [can see a demo of the uploader with minimal configuration here](http://reactdropzone.azurewebsites.net/example).
