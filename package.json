@@ -47,6 +47,7 @@
     "transform": {
       "^.+\\.js?$": "babel-jest"
     },
+    "testURL": "http://localhost/",
     "setupFiles": [
       "<rootDir>/src/__tests__/setup.js"
     ],
