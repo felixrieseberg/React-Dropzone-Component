@@ -100,14 +100,14 @@ export class DropzoneComponent extends React.Component {
    * React 'componentWillUpdate'
    * Update Dropzone options each time the component updates.
    */
-  componentWillUpdate () {
+  componentWillUpdate (nextProps) {
     let djsConfigObj
     let postUrlConfigObj
 
-    djsConfigObj = this.props.djsConfig ? this.props.djsConfig : {}
+    djsConfigObj = nextProps.djsConfig ? nextProps.djsConfig : {}
 
     try {
-      postUrlConfigObj = this.props.config.postUrl ? { url: this.props.config.postUrl } : {}
+      postUrlConfigObj = nextProps.config.postUrl ? { url: nextProps.config.postUrl } : {}
     } catch (err) {
       postUrlConfigObj = {}
     }
