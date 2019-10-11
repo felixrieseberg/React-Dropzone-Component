@@ -40,7 +40,7 @@ npm install react-dropzone-component
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DropzoneComponent from 'react-dropzone-component';
+import {DropzoneComponent} from 'react-dropzone-component';
 
 var componentConfig = {
     iconFiletypes: ['.jpg', '.png', '.gif'],
