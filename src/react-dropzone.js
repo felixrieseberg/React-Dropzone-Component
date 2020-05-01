@@ -8,7 +8,7 @@ let Dropzone = null
 export class DropzoneComponent extends React.Component {
   constructor (props) {
     super(props)
-
+    this.wrapper = React.createRef();
     this.state = { files: [] }
   }
 
@@ -48,7 +48,7 @@ export class DropzoneComponent extends React.Component {
       console.info('Neither postUrl nor a "drop" eventHandler specified, the React-Dropzone component might misbehave.')
     }
 
-    var dropzoneNode = this.props.config.dropzoneSelector || ReactDOM.findDOMNode(this)
+    var dropzoneNode = this.props.config.dropzoneSelector || this.wrapper.current
     this.dropzone = new Dropzone(dropzoneNode, options)
     this.setupEvents()
   }
@@ -91,7 +91,7 @@ export class DropzoneComponent extends React.Component {
     this.queueDestroy = false
 
     if (!this.dropzone) {
-      const dropzoneNode = this.props.config.dropzoneSelector || ReactDOM.findDOMNode(this)
+      const dropzoneNode = this.props.config.dropzoneSelector || this.wrapper.current
       this.dropzone = new Dropzone(dropzoneNode, this.getDjsConfig())
     }
   }
@@ -100,7 +100,7 @@ export class DropzoneComponent extends React.Component {
    * React 'componentWillUpdate'
    * Update Dropzone options each time the component updates.
    */
-  componentWillUpdate () {
+  UNSAFE_componentWillUpdate () {
     let djsConfigObj
     let postUrlConfigObj
 
@@ -132,14 +132,14 @@ export class DropzoneComponent extends React.Component {
 
     if (!this.props.config.postUrl && this.props.action) {
       return (
-        <form action={this.props.action} className={className}>
+        <form ref={this.wrapper} action={this.props.action} className={className}>
           {icons}
           {this.props.children}
         </form>
       )
     } else {
       return (
-        <div className={className}> {icons} {this.props.children} </div>
+        <div ref={this.wrapper} className={className}> {icons} {this.props.children} </div>
       )
     }
   }

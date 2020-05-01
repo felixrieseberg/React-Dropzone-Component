@@ -4118,7 +4118,7 @@
 	     *
 	     * @optional
 	     */
-	    componentWillMount: 'DEFINE_MANY',
+	    UNSAFE_componentWillMount: 'DEFINE_MANY',
 
 	    /**
 	     * Invoked when the component has been mounted and has a DOM representation.
@@ -4151,7 +4151,7 @@
 	     * @param {object} nextProps
 	     * @optional
 	     */
-	    componentWillReceiveProps: 'DEFINE_MANY',
+	    UNSAFE_componentWillReceiveProps: 'DEFINE_MANY',
 
 	    /**
 	     * Invoked while deciding if the component should be updated as a result of
@@ -4190,7 +4190,7 @@
 	     * @param {ReactReconcileTransaction} transaction
 	     * @optional
 	     */
-	    componentWillUpdate: 'DEFINE_MANY',
+	    UNSAFE_componentWillUpdate: 'DEFINE_MANY',
 
 	    /**
 	     * Invoked when the component's DOM representation has been updated.
@@ -11512,10 +11512,10 @@
 	 */
 	function hasArrayNature(obj) {
 	  return (
-	    // not null/false
-	    !!obj && (
+        // not null/false
+        !!obj && (
 	    // arrays are objects, NodeLists are functions in Safari
-	    typeof obj == 'object' || typeof obj == 'function') &&
+	    (typeof obj == 'object' || typeof obj == 'function')) &&
 	    // quacks like an array
 	    'length' in obj &&
 	    // not window
@@ -11524,12 +11524,11 @@
 	    // a 'select' element has 'length' and 'item' properties on IE8
 	    typeof obj.nodeType != 'number' && (
 	    // a real array
-	    Array.isArray(obj) ||
+	    (Array.isArray(obj) ||
 	    // arguments
-	    'callee' in obj ||
-	    // HTMLCollection/NodeList
-	    'item' in obj)
-	  );
+	    'callee' in obj || // HTMLCollection/NodeList
+        'item' in obj))
+      );
 	}
 
 	/**
@@ -16259,13 +16258,13 @@
 	      debugID = this._debugID;
 	    }
 
-	    if (inst.componentWillMount) {
+	    if (inst.UNSAFE_componentWillMount) {
 	      if (process.env.NODE_ENV !== 'production') {
 	        measureLifeCyclePerf(function () {
-	          return inst.componentWillMount();
+	          return inst.UNSAFE_componentWillMount();
 	        }, debugID, 'componentWillMount');
 	      } else {
-	        inst.componentWillMount();
+	        inst.UNSAFE_componentWillMount();
 	      }
 	      // When mounting, calls to `setState` by `componentWillMount` will set
 	      // `this._pendingStateQueue` without triggering a re-render.
@@ -16522,13 +16521,13 @@
 	    // An update here will schedule an update but immediately set
 	    // _pendingStateQueue which will ensure that any state updates gets
 	    // immediately reconciled instead of waiting for the next batch.
-	    if (willReceive && inst.componentWillReceiveProps) {
+	    if (willReceive && inst.UNSAFE_componentWillReceiveProps) {
 	      if (process.env.NODE_ENV !== 'production') {
 	        measureLifeCyclePerf(function () {
-	          return inst.componentWillReceiveProps(nextProps, nextContext);
+	          return inst.UNSAFE_componentWillReceiveProps(nextProps, nextContext);
 	        }, this._debugID, 'componentWillReceiveProps');
 	      } else {
-	        inst.componentWillReceiveProps(nextProps, nextContext);
+	        inst.UNSAFE_componentWillReceiveProps(nextProps, nextContext);
 	      }
 	    }
 
@@ -16622,13 +16621,13 @@
 	      prevContext = inst.context;
 	    }
 
-	    if (inst.componentWillUpdate) {
+	    if (inst.UNSAFE_componentWillUpdate) {
 	      if (process.env.NODE_ENV !== 'production') {
 	        measureLifeCyclePerf(function () {
-	          return inst.componentWillUpdate(nextProps, nextState, nextContext);
+	          return inst.UNSAFE_componentWillUpdate(nextProps, nextState, nextContext);
 	        }, this._debugID, 'componentWillUpdate');
 	      } else {
-	        inst.componentWillUpdate(nextProps, nextState, nextContext);
+	        inst.UNSAFE_componentWillUpdate(nextProps, nextState, nextContext);
 	      }
 	    }
 
@@ -16745,7 +16744,7 @@
 	    }
 	    !(
 	    // TODO: An `isValidNode` function would probably be more appropriate
-	    renderedElement === null || renderedElement === false || React.isValidElement(renderedElement)) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.render(): A valid React element (or null) must be returned. You may have returned undefined, an array or some other invalid object.', this.getName() || 'ReactCompositeComponent') : _prodInvariant('109', this.getName() || 'ReactCompositeComponent') : void 0;
+	    (renderedElement === null || renderedElement === false || React.isValidElement(renderedElement))) ? process.env.NODE_ENV !== 'production' ? invariant(false, '%s.render(): A valid React element (or null) must be returned. You may have returned undefined, an array or some other invalid object.', this.getName() || 'ReactCompositeComponent') : _prodInvariant('109', this.getName() || 'ReactCompositeComponent') : void 0;
 
 	    return renderedElement;
 	  },

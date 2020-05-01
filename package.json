@@ -21,7 +21,7 @@
     "react": ">15.0.1"
   },
   "devDependencies": {
-    "@types/dropzone": "5.0.2",
+    "@types/dropzone": "5.5.2",
     "babel-core": "^6.26.0",
     "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.4",
@@ -35,7 +35,7 @@
     "uglifyjs-webpack-plugin": "^1.2.4"
   },
   "dependencies": {
-    "dropzone": "^5.4.0",
+    "dropzone": "^5.7.0",
     "extend": "^3.0.1"
   },
   "scripts": {
