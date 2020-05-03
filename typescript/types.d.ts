@@ -17,6 +17,10 @@ type SendingMultipleCallback = (files: Dropzone.DropzoneFile[], xhr: XMLHttpRequ
 type SuccessCallback = (file: Dropzone.DropzoneFile, response: Object | string) => any;
 type SuccessMultipleCallback = (files: Dropzone.DropzoneFile[], responseText: string) => any;
 
+export interface DropZoneCallback {
+    removeFile: any;
+}
+
 /* handlers based on ts definitions for Dropzone.js (@types/dropzone) */
 export declare interface DropzoneComponentHandlers {
     init?: InitCallback | InitCallback[];
