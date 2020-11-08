@@ -100,7 +100,7 @@ export class DropzoneComponent extends React.Component {
    * React 'componentWillUpdate'
    * Update Dropzone options each time the component updates.
    */
-  componentWillUpdate () {
+  UNSAFE_componentWillUpdate () {
     let djsConfigObj
     let postUrlConfigObj
 
